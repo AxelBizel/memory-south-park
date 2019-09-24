@@ -11,20 +11,20 @@
 <body>
     <div class="container" id="container">
         <h1 class="text-center mt-5">Memory</h1>
+        <div id="board" class="mt-5"></div>  
         <form id="newGame" class="row justify-content-center mt-5">
             <div class="col-md-6 d-flex justify-content-md-end justify-content-center">
-                <label for="rows" class="text-center mr-2 align-self-center">Nombre de ligne :</label>
-                <input type="number" id="rows" class="form-control" value="4" min="2" max="5">
+                <label for="rows" class="text-center mr-2 align-self-center">Nombre de lignes :</label>
+                <input type="number" id="rows" class="form-control" value="2" min="2" max="5">
             </div>
             <div class="col-md-6 d-flex justify-content-md-start justify-content-center">
                 <label for="columns" class="text-center mr-2 align-self-center">Nombre de colonnes :</label>
-                <input type="number" id="columns" class="form-control" value="5" min="2" max="5">
+                <input type="number" id="columns" class="form-control" value="3" min="2" max="5">
             </div>
             <div class="col-12 mt-3 text-center">
                 <input type="submit" id="newGameBtn" class="btn btn-outline-secondary" value="Nouveau jeu">
             </div>
         </form>
-        <div id="board" class="mt-5"></div>  
     </div>
 
     <script src="script.js"></script>

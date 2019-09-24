@@ -13,10 +13,10 @@ newGameForm.addEventListener("submit", (e) => {
     if (rows * columns % 2 === 0) {
         board.innerHTML = "";
         newGame(rows, columns);
-    } else alert('Merci de saisir au mois un nombre pair')
+    } else alert('Merci de saisir au mois un nombre pair.')
 })
 
-newGame(4, 5);
+newGame(2, 3);
 
 let revealedCards = [];
 let isCardRevealed = false;
@@ -82,7 +82,7 @@ function cardCheck(tile, rows, columns) {
         isCardRevealed = !isCardRevealed;
     }
     else {
-        prevTile = revealedCards[revealedCards.length - 1]
+        prevTile = revealedCards[revealedCards.length - 1];
         if (!(tile.card === prevTile.card)) {
             revealedCards.pop();
             setTimeout(() => hideCard(tile), 1000);
@@ -93,7 +93,7 @@ function cardCheck(tile, rows, columns) {
             isCardRevealed = !isCardRevealed;
             counter++;
             if (revealedCards.length === rows * columns / 2) {
-                setTimeout(() => alert(`Vous avez fini le jeu en ${counter} coups !`), 500);
+                setTimeout(() => alert(`Tu as fini le jeu en ${counter} coups !`), 200);
             }
         }
     }
