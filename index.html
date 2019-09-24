@@ -11,7 +11,20 @@
 <body>
     <div class="container" id="container">
         <h1 class="text-center mt-5">Memory</h1>
-        <div id="board" class="mt-5"></div>  
+        <div class="row mt-5">
+            <div class="col-3 player text-center">
+                <h2 id="player1">Joueur 1</h2>
+                <p>Nombre de coups : <span id="counter1"></span></p>
+            </div>
+            <div class="col-6">
+                <div id="board1"></div>
+                <div id="board2"></div>
+            </div>
+            <div class="col-3 player text-center">
+                <h2 id="player2">Joueur 2</h2>
+                <p>Nombre de coups : <span id="counter2"></span></p>
+            </div>
+        </div>
         <form id="newGame" class="row justify-content-center mt-5">
             <div class="col-md-6 d-flex justify-content-md-end justify-content-center">
                 <label for="rows" class="text-center mr-2 align-self-center">Nombre de lignes :</label>

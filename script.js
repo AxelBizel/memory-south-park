@@ -3,27 +3,43 @@ const MARGIN = 8;
 let tileId = 1;
 
 const container = document.getElementById("container");
-const board = document.getElementById("board");
 const newGameForm = document.getElementById("newGame");
+const player1Title = document.getElementById("player1")
+const player2Title = document.getElementById("player2")
+initialize(2, 3);
+
+function initialize(rows, columns) {
+    board1 = document.getElementById("board1").appendChild(newGame(rows, columns));
+    board2 = document.getElementById("board2").appendChild(newGame(rows, columns));
+    currentPlayer = 1;
+    board2.style.display = "none";
+    player2Title.style.backgroundColor = "transparent";
+    player1Title.style.backgroundColor = "grey";
+    player2Title.style.color = "black";
+    player1Title.style.color = "white";
+    revealedCards = [[],[]];
+    isCardRevealed = [false, false];
+    counter = [0, 0];
+    document.getElementById("counter1").textContent = "";
+    document.getElementById("counter2").textContent = "";
+}
 
 newGameForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const rows = parseInt(document.getElementById("rows").value);
     const columns = parseInt(document.getElementById("columns").value);
     if (rows * columns % 2 === 0) {
-        board.innerHTML = "";
-        newGame(rows, columns);
-    } else alert('Merci de saisir au mois un nombre pair.')
+        board1.innerHTML = "";
+        board2.innerHTML = "";
+        initialize(rows, columns);
+        
+    } else alert('Merci de saisir au moins un nombre pair.')
 })
 
-newGame(2, 3);
-
-let revealedCards = [];
-let isCardRevealed = false;
-let counter = 0;
 
 
 function newGame(rows, columns) {
+    const board = document.createElement("div");
     // Generate a array with random values between 1 and the total number of tiles / 2 (two occurences for each number)
     const randomArray = [];
     for (i = 0; i < rows * columns; i++) {
@@ -55,7 +71,7 @@ function newGame(rows, columns) {
             const bgUrl = `url(images/${tileElt.card}.png)`;
             tileElt.addEventListener("click", (e) => {
                 cardReveal(e.target, bgUrl);
-                cardCheck(e.target, rows, columns);
+                cardCheck(e.target, rows, columns, currentPlayer);
             });
             outerTileElt.appendChild(tileElt);
             rowElt.appendChild(outerTileElt);
@@ -64,6 +80,7 @@ function newGame(rows, columns) {
         }
         board.appendChild(rowElt);
     }
+    return board;
 }
 
 function cardReveal(tile, bgUrl) {
@@ -76,25 +93,49 @@ function hideCard(tile) {
     tile.style.backgroundColor = "grey";
 }
 
-function cardCheck(tile, rows, columns) {
-    if (!isCardRevealed || revealedCards.length === 0) {
-        revealedCards.push(tile);
-        isCardRevealed = !isCardRevealed;
+function cardCheck(tile, rows, columns, currentPlayer) {
+    if (!isCardRevealed[currentPlayer - 1] || revealedCards[currentPlayer - 1].length === 0) {
+        revealedCards[currentPlayer - 1].push(tile);
+        isCardRevealed[currentPlayer - 1] = !isCardRevealed[currentPlayer - 1];
     }
     else {
-        prevTile = revealedCards[revealedCards.length - 1];
+        counterElt = document.getElementById("counter" + currentPlayer)
+        prevTile = revealedCards[currentPlayer - 1][revealedCards[currentPlayer - 1].length - 1];
         if (!(tile.card === prevTile.card)) {
-            revealedCards.pop();
+            revealedCards[currentPlayer - 1].pop();
             setTimeout(() => hideCard(tile), 1000);
             setTimeout(() => hideCard(prevTile), 1000);
-            isCardRevealed = !isCardRevealed;
-            counter++;
+            isCardRevealed[currentPlayer - 1] = !isCardRevealed[currentPlayer - 1];
+            counter[currentPlayer - 1]++;
+            counterElt.textContent = counter[currentPlayer - 1];
         } else {
-            isCardRevealed = !isCardRevealed;
-            counter++;
-            if (revealedCards.length === rows * columns / 2) {
-                setTimeout(() => alert(`Tu as fini le jeu en ${counter} coups !`), 200);
+            isCardRevealed[currentPlayer - 1] = !isCardRevealed[currentPlayer - 1];
+            counter[currentPlayer - 1]++;
+            counterElt.textContent = counter[currentPlayer - 1];
+            if (revealedCards[currentPlayer - 1].length === rows * columns / 2) {
+                setTimeout(() => alert(`Tu as fini le jeu en ${counter[currentPlayer - 1]} coups !`), 200);
             }
         }
+        setTimeout(() => playerToggle(), 1000);
+    }
+}
+
+function playerToggle() {
+    if (currentPlayer === 1) {
+        currentPlayer = 2;
+        board1.style.display = "none";
+        board2.style.display = "block";
+        player1Title.style.backgroundColor = "transparent";
+        player2Title.style.backgroundColor = "grey";
+        player1Title.style.color = "black";
+        player2Title.style.color = "white";
+    } else {
+        currentPlayer = 1;
+        board2.style.display = "none";
+        board1.style.display = "block";   
+        player2Title.style.backgroundColor = "transparent";
+        player1Title.style.backgroundColor = "grey";
+        player2Title.style.color = "black";
+        player1Title.style.color = "white";     
     }
 }
