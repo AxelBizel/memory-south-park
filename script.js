@@ -45,7 +45,7 @@ function newGame(rows, columns) {
             tileElt.classList.add("tile");
             outerTileElt.style.margin = MARGIN + "px";
             tileElt.style.height = "0";
-            tileElt.style.backgroundImage = `url(${randomArray[index]}.png)`;
+            tileElt.style.backgroundImage = `url(images/${randomArray[index]}.png)`;
             outerTileElt.style.width = `calc(100% / ${columns})`;
             outerTileElt.style.maxWidth = "200px";
             //tileElt.style.paddingTop = `calc((100% - ${MARGIN * columns * 2}px)/ ${columns})`;
