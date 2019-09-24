@@ -1,13 +1,14 @@
 .tile {
-    border: 1px solid black;
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding-top: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .custom-row {
     display: flex;
-}
-
-#newGameBtn {
-    width: 250px;
+    justify-content: center;
 }
 
 .form-control {
