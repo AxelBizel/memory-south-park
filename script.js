@@ -93,6 +93,7 @@ function hideCard(tile) {
     tile.style.backgroundColor = "grey";
 }
 
+// Check with revealed card is the first one or the second, and if it is the same than the first one
 function cardCheck(tile, rows, columns, currentPlayer) {
     if (!isCardRevealed[currentPlayer - 1] || revealedCards[currentPlayer - 1].length === 0) {
         revealedCards[currentPlayer - 1].push(tile);
@@ -120,6 +121,7 @@ function cardCheck(tile, rows, columns, currentPlayer) {
     }
 }
 
+// Change current player when tour is over
 function playerToggle() {
     if (currentPlayer === 1) {
         currentPlayer = 2;
