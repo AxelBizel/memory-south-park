@@ -1,0 +1,15 @@
+.tile {
+    border: 1px solid black;
+}
+
+.custom-row {
+    display: flex;
+}
+
+#newGameBtn {
+    width: 250px;
+}
+
+.form-control {
+    width: 100px;
+}
