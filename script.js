@@ -18,6 +18,9 @@ newGameForm.addEventListener("submit", (e) => {
 
 newGame(4, 5);
 
+let revealedCards = [];
+let isCardRevealed = false;
+
 
 function newGame(rows, columns) {
     // Generate a array with random values between 1 and the total number of tiles / 2 (two occurences for each number)
@@ -43,17 +46,49 @@ function newGame(rows, columns) {
             const tileElt = document.createElement("div");
             tileElt.id = "tile" + tileId;
             tileElt.classList.add("tile");
+            tileElt.card = randomArray[index]
             outerTileElt.style.margin = MARGIN + "px";
             tileElt.style.height = "0";
-            tileElt.style.backgroundImage = `url(${randomArray[index]}.png)`;
             outerTileElt.style.width = `calc(100% / ${columns})`;
             outerTileElt.style.maxWidth = "200px";
-            //tileElt.style.paddingTop = `calc((100% - ${MARGIN * columns * 2}px)/ ${columns})`;
+            const bgUrl = `url(${tileElt.card}.png)`;
+            tileElt.addEventListener("click", (e) => {
+                cardReveal(e.target, bgUrl);
+                cardCheck(e.target);
+            });
             outerTileElt.appendChild(tileElt);
             rowElt.appendChild(outerTileElt);
             tileId++;
             index++;
         }
         board.appendChild(rowElt);
+    }
+}
+
+function cardReveal(tile, bgUrl) {
+    tile.style.backgroundImage = bgUrl;
+    tile.style.backgroundColor = "transparent";
+}
+
+function hideCard(tile) {
+    tile.style.backgroundImage = "none";
+    tile.style.backgroundColor = "grey";
+}
+
+function cardCheck(tile) {
+    if (!isCardRevealed || revealedCards.length === 0){
+        revealedCards.push(tile);
+        isCardRevealed = !isCardRevealed;
+        console.log(isCardRevealed);
+    }
+    else {
+        prevTile = revealedCards[revealedCards.length - 1]
+        if (!(tile.card === prevTile.card)) {
+            revealedCards.pop();
+            setTimeout(() => hideCard(tile), 1500);
+            setTimeout(() => hideCard(prevTile), 1500);
+            isCardRevealed = !isCardRevealed;
+            console.log(isCardRevealed);
+        }
     }
 }

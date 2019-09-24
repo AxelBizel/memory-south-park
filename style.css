@@ -2,6 +2,7 @@
     border: 1px solid grey;
     border-radius: 5px;
     padding-top: 100%;
+    background: grey;
     background-repeat: no-repeat;
     background-position: center;
 }
