@@ -20,6 +20,7 @@ newGame(4, 5);
 
 let revealedCards = [];
 let isCardRevealed = false;
+let counter = 0;
 
 
 function newGame(rows, columns) {
@@ -54,7 +55,7 @@ function newGame(rows, columns) {
             const bgUrl = `url(images/${tileElt.card}.png)`;
             tileElt.addEventListener("click", (e) => {
                 cardReveal(e.target, bgUrl);
-                cardCheck(e.target);
+                cardCheck(e.target, rows, columns);
             });
             outerTileElt.appendChild(tileElt);
             rowElt.appendChild(outerTileElt);
@@ -75,11 +76,10 @@ function hideCard(tile) {
     tile.style.backgroundColor = "grey";
 }
 
-function cardCheck(tile) {
-    if (!isCardRevealed || revealedCards.length === 0){
+function cardCheck(tile, rows, columns) {
+    if (!isCardRevealed || revealedCards.length === 0) {
         revealedCards.push(tile);
         isCardRevealed = !isCardRevealed;
-        console.log(isCardRevealed);
     }
     else {
         prevTile = revealedCards[revealedCards.length - 1]
@@ -88,7 +88,13 @@ function cardCheck(tile) {
             setTimeout(() => hideCard(tile), 1000);
             setTimeout(() => hideCard(prevTile), 1000);
             isCardRevealed = !isCardRevealed;
-            console.log(isCardRevealed);
-        } else isCardRevealed = !isCardRevealed;
+            counter++;
+        } else {
+            isCardRevealed = !isCardRevealed;
+            counter++;
+            if (revealedCards.length === rows * columns / 2) {
+                setTimeout(() => alert(`Vous avez fini le jeu en ${counter} coups !`), 500);
+            }
+        }
     }
 }
