@@ -49,10 +49,9 @@ function newGame(rows, columns) {
             tileElt.card = randomArray[index]
             outerTileElt.style.margin = MARGIN + "px";
             tileElt.style.height = "0";
-            tileElt.style.backgroundImage = `url(images/${randomArray[index]}.png)`;
             outerTileElt.style.width = `calc(100% / ${columns})`;
             outerTileElt.style.maxWidth = "200px";
-            const bgUrl = `url(${tileElt.card}.png)`;
+            const bgUrl = `url(images/${tileElt.card}.png)`;
             tileElt.addEventListener("click", (e) => {
                 cardReveal(e.target, bgUrl);
                 cardCheck(e.target);
