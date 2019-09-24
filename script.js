@@ -85,10 +85,10 @@ function cardCheck(tile) {
         prevTile = revealedCards[revealedCards.length - 1]
         if (!(tile.card === prevTile.card)) {
             revealedCards.pop();
-            setTimeout(() => hideCard(tile), 1500);
-            setTimeout(() => hideCard(prevTile), 1500);
+            setTimeout(() => hideCard(tile), 1000);
+            setTimeout(() => hideCard(prevTile), 1000);
             isCardRevealed = !isCardRevealed;
             console.log(isCardRevealed);
-        }
+        } else isCardRevealed = !isCardRevealed;
     }
 }
