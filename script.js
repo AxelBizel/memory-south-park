@@ -117,7 +117,9 @@ function cardCheck(tile, rows, columns, currentPlayer) {
                 setTimeout(() => alert(`Tu as fini le jeu en ${counter[currentPlayer - 1]} coups !`), 200);
             }
         }
+        document.body.style.pointerEvents ="none";
         setTimeout(() => playerToggle(), 1000);
+        setTimeout(() => document.body.style.pointerEvents = "auto", 1000);
     }
 }
 
