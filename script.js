@@ -4,9 +4,10 @@ let tileId = 1;
 
 const container = document.getElementById("container");
 const newGameForm = document.getElementById("newGame");
-const player1Title = document.getElementById("player1")
-const player2Title = document.getElementById("player2")
+const player1Title = document.getElementById("player1");
+const player2Title = document.getElementById("player2");
 initialize(2, 3);
+
 
 function initialize(rows, columns) {
     board1 = document.getElementById("board1").appendChild(newGame(rows, columns));
@@ -35,6 +36,7 @@ newGameForm.addEventListener("submit", (e) => {
         
     } else alert('Merci de saisir au moins un nombre pair.')
 })
+
 
 
 
