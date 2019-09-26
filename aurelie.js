@@ -1,24 +1,29 @@
-
-// const avatarNumber = 4
+// Affiche les avatars (si besoin changer valeur)
+initializeAvatar(4)
 function initializeAvatar(avatarNumber){
-    for (let i; i<avatarNumber, i++){
-    divAvatar = document.getElementById("avatarSelector").createElement("img");
-    img.src = "url('image/"+i+".png')"
+    for (let i=1; i<=avatarNumber; i++){
+    divAvatar = document.createElement("img");
+    divAvatar.src = "images/characters/"+i+".png"
+    document.getElementById("avatarSelector").appendChild(divAvatar);
+    }
 }
-// function avatarDisplay(){
-//     for (let i; i<avatarNumber, i++){
-//         divAvatar = document.getElementById("avatarSelector").createElement("img");
-//         img.src = "url('image/"+i+".png')"
-//     }
-// }
-// const avatarSelector = document.getElementById("avatarSelector");
 
-let userName='toto';
+
+
+let userName;
 // const submitNameAvatar = document.getElementById("submitNameAvatar")
 
+// Fonction fonctionnelle (recupere username) - besoin de rajouter des conditions (presene pseudo, choix avatar)
+// document.getElementById("submitNameAvatar").addEventListener('click', ()=>{
+//     userName = document.getElementById("userName").value
+//     console.log("1",userName)
+// });
 
 document.getElementById("submitNameAvatar").addEventListener('click', ()=>{
-    userName = document.getElementById("userName").value
-    console.log("1",userName)
+    if(document.getElementById("userName").value !== ""){
+        userName = document.getElementById("userName").value
+        console.log("1",userName)
+    } else {
+        alert("On a besoin de ton p'tit nom")
+    }
 });
-
