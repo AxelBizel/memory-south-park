@@ -43,15 +43,13 @@ newGameForm.addEventListener("submit", (e) => {
 function newGame(rows, columns) {
     const board = document.createElement("div");
     // Generate a array with random values between 1 and the total number of tiles / 2 (two occurences for each number)
-    const randomArray = [];
-    for (i = 0; i < rows * columns; i++) {
-        randomArray.push("");
-    }
+    const randomArray = new Array(20);
+    randomArray.fill("");
     for (j = 0; j < 2; j++) {
         for (i = 1; i < (rows * columns) / 2 + 1; i++) {
-            let randomNumber = Math.floor(Math.random() * 20);
+            let randomNumber = Math.floor(Math.random() * rows * columns);
             while (randomArray[randomNumber] != "") {
-                randomNumber = Math.floor(Math.random() * 20);
+                randomNumber = Math.floor(Math.random() * rows * columns);
             }
             randomArray[randomNumber] = i;
         }
