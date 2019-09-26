@@ -6,7 +6,7 @@ const container = document.getElementById("container");
 const newGameForm = document.getElementById("newGame");
 const player1Title = document.getElementById("player1");
 const player2Title = document.getElementById("player2");
-initialize(2, 3);
+initialize(5, 5);
 
 
 function initialize(rows, columns) {
@@ -39,14 +39,14 @@ newGameForm.addEventListener("submit", (e) => {
 
 
 
-
-function newGame(rows, columns) {
+// This function generates and return a new board div element with the numbers of rows and columns as arguments
+function newGame(rows, columns, hasMisteryCard = true) {
     const board = document.createElement("div");
     // Generate a array with random values between 1 and the total number of tiles / 2 (two occurences for each number)
-    const randomArray = new Array(20);
+    const randomArray = new Array(rows * columns);
     randomArray.fill("");
     for (j = 0; j < 2; j++) {
-        for (i = 1; i < (rows * columns) / 2 + 1; i++) {
+        for (i = 1; i < Math.floor(rows * columns / 2) + 1; i++) {
             let randomNumber = Math.floor(Math.random() * rows * columns);
             while (randomArray[randomNumber] != "") {
                 randomNumber = Math.floor(Math.random() * rows * columns);
@@ -54,7 +54,17 @@ function newGame(rows, columns) {
             randomArray[randomNumber] = i;
         }
     }
+    if (hasMisteryCard) {
+        for (i = 0; i < randomArray.length; i++) {
+            if (randomArray[i] === "") {
+                randomArray[i] = 'Mystery';
+                break;
+            }
+        }
+    }
+    console.log(randomArray)
     let index = 0;
+    let imgDir;
     for (let i = 0; i < rows; i++) {
         const rowElt = document.createElement("div");
         rowElt.classList.add("custom-row");
@@ -65,10 +75,11 @@ function newGame(rows, columns) {
             tileElt.classList.add("tile");
             tileElt.card = randomArray[index]
             outerTileElt.style.margin = MARGIN + "px";
-            tileElt.style.height = "0";
             outerTileElt.style.width = `calc(100% / ${columns})`;
             outerTileElt.style.maxWidth = "200px";
-            const bgUrl = `url(images/${tileElt.card}.png)`;
+            if (tileElt.card === "Mystery") imgDir = "mystery";
+            else imgDir = "characters";
+            const bgUrl = `url(images/${imgDir}/${tileElt.card}.png)`;
             tileElt.addEventListener("click", (e) => {
                 cardReveal(e.target, bgUrl);
                 cardCheck(e.target, rows, columns, currentPlayer);

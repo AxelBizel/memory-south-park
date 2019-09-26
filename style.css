@@ -4,7 +4,9 @@
     padding-top: 100%;
     background: grey;
     background-repeat: no-repeat;
+    background-size: contain;
     background-position: center;
+    height: 0;
 }
 
 .custom-row {
