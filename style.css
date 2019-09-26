@@ -33,6 +33,7 @@ body {
 
 form {
     display: flex;
+    font-size: 3em;
     margin: 30px 30%;
     flex-direction: column;
     text-align: center;
