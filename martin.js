@@ -1,3 +1,9 @@
+// MARGIN is the value of margins between tiles in px
+const MARGIN = 8;
+let tileId = 1;
+const board = newGame(5, 5);
+document.getElementById("board").appendChild(board);
+
 // This function generates and return a new board div element with the numbers of rows and columns as arguments
 function newGame(rows, columns, hasMisteryCard = true) {
     const board = document.createElement("div");
@@ -41,9 +47,15 @@ function newGame(rows, columns, hasMisteryCard = true) {
             else imgDir = "characters";
             const bgUrl = `url(images/${imgDir}/${tileElt.card}.png)`;
             tileElt.addEventListener("click", (e) => {
-                cardReveal(e.target, bgUrl);
-                matchedPair = cardCheck(e.target);
-                if 
+                revealCard(e.target, bgUrl);
+                console.log(cardCheck(e.target))
+                if (cardCheck(e.target) && !(typeof cardCheck(e.target) === "object")) console.log('addPoint()');
+                else if (!cardCheck(e.target)) {
+                    console.log('ok')
+                    hideCard(e.target);
+                    hideCard(cardCheck(e.target));
+                }
+
             });
             outerTileElt.appendChild(tileElt);
             rowElt.appendChild(outerTileElt);
@@ -58,7 +70,18 @@ function newGame(rows, columns, hasMisteryCard = true) {
 
 // Vérifie si il y a déjà une carte retournée ; si c'est le cas, compare les deux cartes et renvoie true si identiques et false sinon
 function cardCheck(tile) {
-    if (!revealedCard) revealedCard = tile.card;
-    else if (tile.card === revealedCard) return true;
-    else return false;
+    if (!revealedCard) revealedCard = tile;
+    else if (tile.card === revealedCard) revealedCard = true;
+    else revealedCard = false;
+    return revealedCard;
+}
+
+function revealCard(tile, bgUrl) {
+    tile.style.backgroundImage = bgUrl;
+    tile.style.backgroundColor = "transparent";
+}
+
+function hideCard(tile) {
+    tile.style.backgroundImage = "none";
+    tile.style.backgroundColor = "grey";
 }

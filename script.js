@@ -6,7 +6,7 @@ const container = document.getElementById("container");
 const newGameForm = document.getElementById("newGame");
 const player1Title = document.getElementById("player1");
 const player2Title = document.getElementById("player2");
-initialize(5, 5);
+initialize(4, 5);
 
 
 function initialize(rows, columns) {
