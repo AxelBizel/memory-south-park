@@ -1,7 +1,7 @@
 //fonction chrono
 
 const chrono = document.getElementById('chrono');
-let time = 4; 
+let time = 60; 
 const decompte = setInterval(startStopChrono, 1000);
 
 function startStopChrono(){
@@ -12,6 +12,3 @@ function startStopChrono(){
     }
     
 }
-
-
-

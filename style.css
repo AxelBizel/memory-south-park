@@ -28,24 +28,31 @@ time, mark, audio, video {
 body {
     display: flex;
     flex-direction: column;
+    align-items: center;
     background-image: url(https://image.noelshack.com/fichiers/2019/39/3/1569414232-kennybg.jpg);
     background-attachment: scroll;
 }
-
-
-
-form {
-    display: flex;
-    font-size: 3em;
-    margin: 30px 30%;
-    flex-direction: column;
-    text-align: center;
-    border: 1px solid black;
-}
-
 
 #logo {
     display: flex;
     justify-content: center;
     margin-top: 40px;
+}
+
+#playerinfo {
+    display: flex;
+}
+
+#chrono-container {
+    display: flex;
+    justify-content: center;
+}
+
+#chrono {
+    display: flex;
+    border: 1px solid black;
+}
+
+#avatar {
+    border: 1px solid black;
 }

@@ -5,5 +5,4 @@ function addPoint() {
     nbPoints++
     counter.innerText = nbPoints;    
 }
-
 addPoint(true);
