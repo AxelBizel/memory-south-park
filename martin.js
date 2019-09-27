@@ -19,6 +19,7 @@ function newGame(rows, columns, hasMisteryCard = true) {
     (hasMisteryCard) ? nbCards = rows * columns - 1 : nbCards = rows * columns;
     logo.style.position = "absolute";
     logo.style.width = "20%";
+    logo.style.left = "16px";
     const board = document.createElement("div");
     revealedCards = [];
     revealedCards.status = "";
