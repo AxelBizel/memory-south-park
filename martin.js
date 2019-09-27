@@ -3,6 +3,11 @@ const MARGIN = 8;
 let tileId = 1;
 const board = newGame(5, 5);
 document.getElementById("board").appendChild(board);
+let nbPoints = 0;
+const mysteryCardMessage = document.getElementById("mysteryCard");
+mysteryCardMessage.addEventListener("click", (e) => {
+    e.target.style.display = "none";
+});
 
 // This function generates and return a new board div element with the numbers of rows and columns as arguments
 function newGame(rows, columns, hasMisteryCard = true) {
@@ -24,7 +29,7 @@ function newGame(rows, columns, hasMisteryCard = true) {
     if (hasMisteryCard) {
         for (i = 0; i < randomArray.length; i++) {
             if (randomArray[i] === "") {
-                randomArray[i] = 'Mystery';
+                randomArray[i] = 'mystery';
                 break;
             }
         }
@@ -44,28 +49,34 @@ function newGame(rows, columns, hasMisteryCard = true) {
             outerTileElt.style.margin = MARGIN + "px";
             outerTileElt.style.width = `calc(100% / ${columns})`;
             outerTileElt.style.maxWidth = "200px";
-            if (tileElt.card === "Mystery") imgDir = "mystery";
+            if (tileElt.card === "mystery") imgDir = "mystery";
             else imgDir = "characters";
             const bgUrl = `url(images/${imgDir}/${tileElt.card}.png)`;
             tileElt.addEventListener("click", (e) => {
                 revealCard(e.target, bgUrl);
                 cardCheck(e.target);
                 if (revealedCards.status === "win") {
-                    console.log('addPoint()');
+                    addPoint();
+                    revealedCards[0].style.pointerEvents = "none";
+                    revealedCards[1].style.pointerEvents = "none";
                     revealedCards = [];
                     revealedCards.status = "";
                 }
                 else if (revealedCards.status === "lose") {
-                    document.body.style.pointerEvents ="none";
+                    document.body.style.pointerEvents = "none";
                     setTimeout(() => {
                         hideCard(revealedCards[0]);
                         hideCard(revealedCards[1]);
                         revealedCards = [];
                         revealedCards.status = "";
-                        document.body.style.pointerEvents ="auto";
+                        document.body.style.pointerEvents = "auto";
                     }, 1000);
+                } else if (revealedCards.status === "mystery") {
+                    mysteryCardMessage.style.display = "block";
+                    if (revealedCards.length === 2) hideCard(revealedCards[0]);
+                    revealedCards = [];
+                    revealedCards.status = "";
                 }
-
             });
             outerTileElt.appendChild(tileElt);
             rowElt.appendChild(outerTileElt);
@@ -84,8 +95,9 @@ function cardCheck(tile) {
     if (revealedCards.length === 2) {
         if (revealedCards[0].card === revealedCards[1].card) {
             revealedCards.status = "win";
-        } else revealedCards.status = "lose"
-    }
+        } else if (revealedCards[1].card === "mystery") revealedCards.status = "mystery";
+        else revealedCards.status = "lose"
+    } else if (revealedCards[0].card === "mystery") revealedCards.status = "mystery";
 }
 
 function revealCard(tile, bgUrl) {
@@ -96,4 +108,10 @@ function revealCard(tile, bgUrl) {
 function hideCard(tile) {
     tile.style.backgroundImage = "none";
     tile.style.backgroundColor = "grey";
+}
+
+function addPoint() {
+    const counter = document.getElementById('counter');
+    nbPoints++
+    counter.innerText = nbPoints;    
 }

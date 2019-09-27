@@ -41,3 +41,17 @@
     text-align: center;
     border-radius: 6px;
 }
+
+#mysteryCard {
+    display: none;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    padding: 37% 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    font-size: 4rem;
+    background-color: rgba(50, 50, 50, 0.7);
+    color: white;
+}
