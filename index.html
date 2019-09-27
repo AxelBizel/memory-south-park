@@ -4,14 +4,39 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <title>South Park Memory</title>
   </head>
   <body>
-    <div id="logo"><img src="https://image.noelshack.com/fichiers/2019/39/3/1569413346-logomemory.png" alt="Logo South Park"></div>
+    <div class="mx-5">
+      <img id="logo" class="mx-auto" src="https://image.noelshack.com/fichiers/2019/39/3/1569413346-logomemory.png" alt="Logo South Park">
+      <div class="row mt-5 align-items-center">
+        <div id="player1" class="col-3 player text-center side-info">
+          <h2>Joueur 1</h2>
+          <p id="counter">0</p>
+        </div>
+        <div id="boardDiv" class="col-6">
+          <div id="board"></div>
+        </div>
+        <div id="player2" class="col-3 player text-center side-info">
+          <h2>Joueur 2</h2>
+          <p>Nombre de coups : <span id="counter2"></span></p>
+        </div>
+        <div class="col-3 player text-center side-info">
+          <h2>Temps restant :</h2>
+          <p id="chrono"></p>
+        </div>
+      </div>
+    </div>
 
-    <div id="chrono-container"><p id="chrono"></p></div>
+    <div id="mysteryCard">Carte mystère</div>
+
+    <div id="gameOverDiv" class="modal">
+      <div id="gameOver" class="modal-content"></div>
+    </div>
     
-  <script src="script.js"></script>
+  <script src="ludo.js"></script>
+  <script src="martin.js"></script>
   </body>
 </html>

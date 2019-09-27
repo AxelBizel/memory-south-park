@@ -1,16 +1,25 @@
 // MARGIN is the value of margins between tiles in px
 const MARGIN = 8;
 let tileId = 1;
-const board = newGame(5, 5);
-document.getElementById("board").appendChild(board);
 let nbPoints = 0;
+let win = false;
 const mysteryCardMessage = document.getElementById("mysteryCard");
+const logo = document.getElementById("logo");
+const gameOverElt = document.getElementById("gameOver")
+const board = newGame(5, 5, false);
+document.getElementById("board").appendChild(board);
+
 mysteryCardMessage.addEventListener("click", (e) => {
     e.target.style.display = "none";
 });
 
 // This function generates and return a new board div element with the numbers of rows and columns as arguments
 function newGame(rows, columns, hasMisteryCard = true) {
+    win = false;
+    let nbCards;
+    (hasMisteryCard) ? nbCards = rows * columns - 1 : nbCards = rows * columns;
+    logo.style.position = "absolute";
+    logo.style.width = "20%";
     const board = document.createElement("div");
     revealedCards = [];
     revealedCards.status = "";
@@ -49,7 +58,10 @@ function newGame(rows, columns, hasMisteryCard = true) {
             outerTileElt.style.margin = MARGIN + "px";
             outerTileElt.style.width = `calc(100% / ${columns})`;
             outerTileElt.style.maxWidth = "200px";
-            if (tileElt.card === "mystery") imgDir = "mystery";
+            if (tileElt.card === "mystery") {
+                imgDir = "mystery";
+                tileElt.style.backgroundSize = "120%";
+            }    
             else imgDir = "characters";
             const bgUrl = `url(images/${imgDir}/${tileElt.card}.png)`;
             tileElt.addEventListener("click", (e) => {
@@ -57,6 +69,10 @@ function newGame(rows, columns, hasMisteryCard = true) {
                 cardCheck(e.target);
                 if (revealedCards.status === "win") {
                     addPoint();
+                    if (nbPoints === nbCards / 2) {
+                        win = true;
+                        gameOver();
+                    }
                     revealedCards[0].style.pointerEvents = "none";
                     revealedCards[1].style.pointerEvents = "none";
                     revealedCards = [];
@@ -102,16 +118,27 @@ function cardCheck(tile) {
 
 function revealCard(tile, bgUrl) {
     tile.style.backgroundImage = bgUrl;
-    tile.style.backgroundColor = "transparent";
+    tile.style.backgroundColor = "rgba(200, 200, 200, 0.6";
 }
 
 function hideCard(tile) {
     tile.style.backgroundImage = "none";
-    tile.style.backgroundColor = "grey";
+    tile.style.backgroundColor = "red";
 }
 
 function addPoint() {
     const counter = document.getElementById('counter');
     nbPoints++
     counter.innerText = nbPoints;    
+}
+
+function gameOver() {
+    if (win) {
+        gameOverElt.innerText = `Bravo, tu as gagné en ${120 - cpt} secondes !`;
+        clearTimeout(x);
+    }
+    else {
+        gameOverElt.innerText = `Tu as perdu et n'a trouvé que ${nbPoints} paires. C'est nul !`
+    }
+    document.getElementById("gameOverDiv").style.display = "block";
 }

@@ -2,8 +2,9 @@
 
 function addPoint() {
     const counter = document.getElementById('counter');
-    nbPoints++
-    counter.innerText = nbPoints;    
+    nbPoints++;
+    counter.innerText = nbPoints;
+    return nbPoints; 
 }
 
 addPoint(true);
