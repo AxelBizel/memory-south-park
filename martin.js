@@ -6,7 +6,7 @@ let win = false;
 const mysteryCardMessage = document.getElementById("mysteryCard");
 const logo = document.getElementById("logo");
 const gameOverElt = document.getElementById("gameOver")
-const board = newGame(5, 5, false);
+const board = newGame(5, 5, true);
 document.getElementById("board").appendChild(board);
 
 mysteryCardMessage.addEventListener("click", (e) => {
@@ -134,7 +134,7 @@ function addPoint() {
 
 function gameOver() {
     if (win) {
-        gameOverElt.innerText = `Bravo, tu as gagné en ${120 - cpt} secondes !`;
+        gameOverElt.innerText = `Bravo, tu as gagné en ${120 - cpt  - 1} secondes !`;
         clearTimeout(x);
     }
     else {
