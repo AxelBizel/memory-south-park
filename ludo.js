@@ -10,5 +10,3 @@ function decompte() {
     gameOver();
   }
 }   
-
-decompte();

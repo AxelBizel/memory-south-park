@@ -1,6 +1,5 @@
 #divPseudoAvatarSelector  {
     text-align: center;
-    margin: 0 auto;
     margin-bottom : 20px
 }
 #userName {
@@ -16,7 +15,8 @@
     list-style-type: none;
 }
 #divPseudoAvatarSelector .selected {
-    background-color: blue
+    background-color: blue;
+    border-radius: 30px;
 }
 #avatarSelector {
     display: flex;

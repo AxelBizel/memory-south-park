@@ -6,8 +6,6 @@ let win = false;
 const mysteryCardMessage = document.getElementById("mysteryCard");
 const logo = document.getElementById("logo");
 const gameOverElt = document.getElementById("gameOver")
-const board = newGame(5, 5, true);
-document.getElementById("board").appendChild(board);
 
 mysteryCardMessage.addEventListener("click", (e) => {
     e.target.style.display = "none";
@@ -15,6 +13,7 @@ mysteryCardMessage.addEventListener("click", (e) => {
 
 // This function generates and return a new board div element with the numbers of rows and columns as arguments
 function newGame(rows, columns, hasMisteryCard = true) {
+    document.getElementById("player1Name").innerText = userName;
     win = false;
     let nbCards;
     (hasMisteryCard) ? nbCards = rows * columns - 1 : nbCards = rows * columns;

@@ -29,12 +29,17 @@ function selecter(channelNumber){
 
  // Cree variable username et avatar en fonction de l'entrée
 let userName;
-document.getElementById("submitNameAvatar").addEventListener('click', ()=>{
+document.getElementById("submitNameAvatar").addEventListener('click', (e)=>{
+    
     if(document.getElementById("userName").value !== "" && choosenAvatar !== undefined){
+        document.getElementById("avatarSelectorWrap").style.display = "none";
         userName = document.getElementById("userName").value;
         playerAvatar = choosenAvatar;
         console.log(playerAvatar);
         console.log("1",userName);
+        board = newGame(5, 5, true);
+        decompte();
+        document.getElementById("board").appendChild(board);
     } else if (choosenAvatar !== undefined){
         alert("On a besoin de ton p'tit nom")
     } else if (document.getElementById("userName").value !== ""){

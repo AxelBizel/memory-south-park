@@ -22,7 +22,7 @@
     border-radius: 25px;
 }
 
-.modal {
+.modal-custom {
     position: fixed;
     left: 0;
     top: 0;
@@ -30,10 +30,10 @@
     width: 100%;
     height: 100%;
     background-color: rgba(50, 50, 50, 0.7);
-    display: none;
+    /* display: none; */
 }
 
-.modal-content {
+.modal-content-custom {
     border: 5px solid black;
     border-radius: 5px;
     background: red;
@@ -49,7 +49,7 @@
     height: 100%;
     width: 100%;
     text-align: center;
-    padding: 37% 0;
+    padding: 25% 0;
     position: fixed;
     top: 0;
     left: 0;
@@ -132,3 +132,16 @@ form {
     font-size: 24px;
 }
 
+#divPseudoAvatarSelector {
+    margin: 15% auto;
+}
+
+.btn, .btn-outline-secondary {
+    color: black !important;
+    border-color: black;
+}
+
+#userName {
+    border: 5px solid black;
+    border-radius: 5px;
+}

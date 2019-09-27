@@ -6,5 +6,3 @@ function addPoint() {
     counter.innerText = nbPoints;
     return nbPoints; 
 }
-
-addPoint(true);
