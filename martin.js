@@ -7,7 +7,8 @@ document.getElementById("board").appendChild(board);
 // This function generates and return a new board div element with the numbers of rows and columns as arguments
 function newGame(rows, columns, hasMisteryCard = true) {
     const board = document.createElement("div");
-    revealedCard = undefined;
+    revealedCards = [];
+    revealedCards.status = "";
     // Generate a array with random values between 1 and the total number of tiles / 2 (two occurences for each number)
     const randomArray = new Array(rows * columns);
     randomArray.fill("");
@@ -48,12 +49,21 @@ function newGame(rows, columns, hasMisteryCard = true) {
             const bgUrl = `url(images/${imgDir}/${tileElt.card}.png)`;
             tileElt.addEventListener("click", (e) => {
                 revealCard(e.target, bgUrl);
-                console.log(cardCheck(e.target))
-                if (cardCheck(e.target) && !(typeof cardCheck(e.target) === "object")) console.log('addPoint()');
-                else if (!cardCheck(e.target)) {
-                    console.log('ok')
-                    hideCard(e.target);
-                    hideCard(cardCheck(e.target));
+                cardCheck(e.target);
+                if (revealedCards.status === "win") {
+                    console.log('addPoint()');
+                    revealedCards = [];
+                    revealedCards.status = "";
+                }
+                else if (revealedCards.status === "lose") {
+                    document.body.style.pointerEvents ="none";
+                    setTimeout(() => {
+                        hideCard(revealedCards[0]);
+                        hideCard(revealedCards[1]);
+                        revealedCards = [];
+                        revealedCards.status = "";
+                        document.body.style.pointerEvents ="auto";
+                    }, 1000);
                 }
 
             });
@@ -68,12 +78,14 @@ function newGame(rows, columns, hasMisteryCard = true) {
 }
 
 
-// Vérifie si il y a déjà une carte retournée ; si c'est le cas, compare les deux cartes et renvoie true si identiques et false sinon
+// Vérifie si il y a déjà une carte retournée ; si c'est le cas, compare les deux cartes et change le status de revealedCards en fonction
 function cardCheck(tile) {
-    if (!revealedCard) revealedCard = tile;
-    else if (tile.card === revealedCard) revealedCard = true;
-    else revealedCard = false;
-    return revealedCard;
+    revealedCards.push(tile);
+    if (revealedCards.length === 2) {
+        if (revealedCards[0].card === revealedCards[1].card) {
+            revealedCards.status = "win";
+        } else revealedCards.status = "lose"
+    }
 }
 
 function revealCard(tile, bgUrl) {
