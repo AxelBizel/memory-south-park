@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // MARGIN is the value of margins between tiles in px
 const MARGIN = 8;
 let tileId = 1;
@@ -154,3 +155,16 @@ function playerToggle() {
         player1Title.style.color = "white";     
     }
 }
+=======
+let cpt = 60;
+let x;
+function decompte() {
+  if (cpt >= 0) {
+    document.getElementById("chrono").innerHTML = "La page s'affichera dans " + cpt + "sec";
+    cpt--;
+    x = setTimeout(decompte, 1000);
+  } else {
+    clearTimeout(x);
+  }
+}   
+>>>>>>> ludo
