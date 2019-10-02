@@ -44,15 +44,3 @@ const charactersNames = [
 ];
 const characters = [];
 let index = 1;
-
-charactersNames.forEach(characterName => {
-    const character = new Character(characterName, index)
-    characters.push(character);
-    const imgElt = document.createElement("img");
-    imgElt.src = characters[index-1].imageUrl;
-    imgElt.addEventListener('click', () => character.playSound());
-    document.body.appendChild(imgElt);
-    index++;
-});
-
-console.log(characters[Math.floor(Math.random() * 17)]);
