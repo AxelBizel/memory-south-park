@@ -41,7 +41,7 @@ const charactersNames = [
     'Mr. Garrison',
     'Timmy',
     'Servietsky',
-    'Officer Barbrady'
+    'Officer Barbrady',
 ];
 const characters = [];
 let index = 1;
@@ -51,3 +51,5 @@ charactersNames.forEach(characterName => {
     characters.push(character);
     index++;
 });
+
+characters.push(new Character('Mystery', 'mystery'));

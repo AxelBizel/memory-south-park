@@ -17,7 +17,7 @@ function newGame(nbRows, nbColumns, nbMysteryCards) {
     columns = nbColumns;
     // document.getElementById("player1Name").innerText = userName;
     win = false;
-    const nbCards = rows * columns - nbMysteryCards;
+    nbCards = rows * columns - nbMysteryCards;
     logo.style.position = "absolute";
     logo.style.width = "20%";
     logo.style.left = "50px";
@@ -33,11 +33,11 @@ function newGame(nbRows, nbColumns, nbMysteryCards) {
 function cardCheck(card) {
     revealedCards.push(card);
     if (revealedCards.length === 2) {
-        if (revealedCards[1] === "mystery") revealedCards.status = "mystery";
-        else if (revealedCards[1].name === revealedCards[0].name) {
+        if (revealedCards[1].characterId === "mystery") revealedCards.status = "mystery";
+        else if (revealedCards[1].characterId === revealedCards[0].characterId) {
             revealedCards.status = "win";
         } else revealedCards.status = "lose";
-    } else if (revealedCards[0] === "mystery") revealedCards.status = "mystery";
+    } else if (revealedCards[0].characterId === "mystery") revealedCards.status = "mystery";
 }
 
 function revealCard(card) {
@@ -66,67 +66,68 @@ function gameOver() {
 }
 
 function shuffle(nbCards, nbMysteryCards) {
-    const randomArray = new Array(rows * columns);
-    randomArray.fill("");
+    let index = 1;
+    const shuffledCards = new Array(nbCards + nbMysteryCards);
+    shuffledCards.fill("");
     for (j = 0; j < 2; j++) {
-        for (i = 1; i < Math.floor(rows * columns / 2) + 1; i++) {
-            let randomNumber = Math.floor(Math.random() * nbCards);
-            while (randomArray[randomNumber] != "") {
-                randomNumber = Math.floor(Math.random() * nbCards);
+        for (i = 1; i < Math.floor(nbCards / 2) + 1; i++) {
+            let randomNumber = Math.floor(Math.random() * (nbCards + nbMysteryCards));
+            while (shuffledCards[randomNumber] != "") {
+                randomNumber = Math.floor(Math.random() * (nbCards + nbMysteryCards));
             }
-            randomArray[randomNumber] = i;
+            shuffledCards[randomNumber] = new Card(index, i);
+            index++;
         }
     }
-    const shuffledCards = randomArray.map(value => {
-        return characters.filter(character => character === value);
-    })
+    console.log(shuffledCards)
     if (nbMysteryCards) {
         for (let i = 0; i < shuffledCards.length; i++) {
-            if (shuffledCards[i] === "") {
-                shuffledCards[i] = "mystery";
-                shuffledCards[i].isRevealed = false;
-                shuffledCards[i].class = "mystery";
+            if (!shuffledCards[i]) {
+                shuffledCards[i] = new Card(index, "mystery");
+                index++;
             }
         }
     }
-
     return shuffledCards;
 }
 
 function handleCardClick(card) {
+    if (card.isRevealed) return;
     revealCard(card);
+    updateView();
     cardCheck(card);
+    console.log(card.isRevealed)
     if (revealedCards.status === "win") {
         addPoint();
+        characters.find(character => character.id === card.characterId).playSound();
         if (nbPoints === nbCards / 2) {
             win = true;
             gameOver();
         }
-        revealedCards[0].style.pointerEvents = "none";
-        revealedCards[1].style.pointerEvents = "none";
+        // revealedCards[0].style.pointerEvents = "none";
+        // revealedCards[1].style.pointerEvents = "none";
         revealedCards = [];
         revealedCards.status = "";
+        updateView();
     }
     else if (revealedCards.status === "lose") {
         document.body.style.pointerEvents = "none";
-        setTimeout(() => {
-            hideCard(revealedCards[0]);
-            hideCard(revealedCards[1]);
-            revealedCards = [];
-            revealedCards.status = "";
-            document.body.style.pointerEvents = "auto";
-        }, 1000);
+        hideCard(revealedCards[0]);
+        hideCard(revealedCards[1]);
+        revealedCards = [];
+        revealedCards.status = "";
+        document.body.style.pointerEvents = "auto";
+        setTimeout(updateView, 1000);
     } else if (revealedCards.status === "mystery") {
         mysteryCardMessage.style.display = "block";
         if (revealedCards.length === 2) hideCard(revealedCards[0]);
         revealedCards = [];
         revealedCards.status = "";
-    }
-    board.innerHTML = "";
-    updateView();
+    } else updateView();
 }
 
 function updateView() {
+    board.innerHTML = "";
     let index = 0;
     for (let i = 0; i < rows; i++) {
         HTMLContent = '<div class="custom-row">'
@@ -134,15 +135,21 @@ function updateView() {
             const card = shuffledCards[index];
             HTMLContent +=
                 `<div style="margin: ${MARGIN}px; width: calc(100% / ${columns}); max-width: 200px;">` +
-                    `<div id="${card.id}" class="card" style="${card.isRevealed ? `background-image: url(${card.imageUrl}); background-color: rgba(200, 200, 200, 0.6);` : "background-color: red;"}"></div>` +
+                    `<div card=${card} class="card" style="${card.isRevealed ? `background-image: url(${card.bgUrl}); background-color: rgba(200, 200, 200, 0.6);` : "background-color: red;"}" onclick="handleCardClick(shuffledCards[${index}])"></div>` +
                 `</div>`;
             index++;
         }
         HTMLContent += '</div>'
         board.innerHTML += HTMLContent;
-        for (let k = 0; k < rows * columns; k++) {
-            
-        }
+    }
+}
+
+class Card {
+    constructor(id, characterId) {
+        this.id = id;
+        this.characterId = characterId;
+        this.isRevealed = false;
+        this.bgUrl = characters.find(character => character.id === characterId).imageUrl;
     }
 }
 
