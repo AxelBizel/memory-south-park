@@ -12,118 +12,40 @@ mysteryCardMessage.addEventListener("click", (e) => {
 });
 
 // This function generates and return a new board div element with the numbers of rows and columns as arguments
-function newGame(rows, columns, hasMisteryCard = true) {
-    document.getElementById("player1Name").innerText = userName;
+function newGame(nbRows, nbColumns, nbMysteryCards) {
+    rows = nbRows;
+    columns = nbColumns;
+    // document.getElementById("player1Name").innerText = userName;
     win = false;
-    let nbCards;
-    (hasMisteryCard) ? nbCards = rows * columns - 1 : nbCards = rows * columns;
+    const nbCards = rows * columns - nbMysteryCards;
     logo.style.position = "absolute";
     logo.style.width = "20%";
     logo.style.left = "50px";
-    const board = document.createElement("div");
+    const board = document.getElementById("board");
     revealedCards = [];
     revealedCards.status = "";
-    // Generate a array with random values between 1 and the total number of tiles / 2 (two occurences for each number)
-    const randomArray = new Array(rows * columns);
-    randomArray.fill("");
-    for (j = 0; j < 2; j++) {
-        for (i = 1; i < Math.floor(rows * columns / 2) + 1; i++) {
-            let randomNumber = Math.floor(Math.random() * rows * columns);
-            while (randomArray[randomNumber] != "") {
-                randomNumber = Math.floor(Math.random() * rows * columns);
-            }
-            randomArray[randomNumber] = i;
-        }
-    }
-    if (hasMisteryCard) {
-        for (i = 0; i < randomArray.length; i++) {
-            if (randomArray[i] === "") {
-                randomArray[i] = 'mystery';
-                break;
-            }
-        }
-    }
-    console.log(randomArray)
-    let index = 0;
-    let imgDir;
-    for (let i = 0; i < rows; i++) {
-        const rowElt = document.createElement("div");
-        rowElt.classList.add("custom-row");
-        for (let j = 0; j < columns; j++) {
-            const outerTileElt = document.createElement("div");
-            const tileElt = document.createElement("div");
-            tileElt.id = "tile" + tileId;
-            tileElt.classList.add("tile");
-            tileElt.card = randomArray[index]
-            outerTileElt.style.margin = MARGIN + "px";
-            outerTileElt.style.width = `calc(100% / ${columns})`;
-            outerTileElt.style.maxWidth = "200px";
-            if (tileElt.card === "mystery") {
-                imgDir = "mystery";
-                tileElt.style.backgroundSize = "120%";
-            }    
-            else imgDir = "characters";
-            const bgUrl = `url(images/${imgDir}/${tileElt.card}.png)`;
-            tileElt.addEventListener("click", (e) => {
-                revealCard(e.target, bgUrl);
-                cardCheck(e.target);
-                if (revealedCards.status === "win") {
-                    addPoint();
-                    if (nbPoints === nbCards / 2) {
-                        win = true;
-                        gameOver();
-                    }
-                    revealedCards[0].style.pointerEvents = "none";
-                    revealedCards[1].style.pointerEvents = "none";
-                    revealedCards = [];
-                    revealedCards.status = "";
-                }
-                else if (revealedCards.status === "lose") {
-                    document.body.style.pointerEvents = "none";
-                    setTimeout(() => {
-                        hideCard(revealedCards[0]);
-                        hideCard(revealedCards[1]);
-                        revealedCards = [];
-                        revealedCards.status = "";
-                        document.body.style.pointerEvents = "auto";
-                    }, 1000);
-                } else if (revealedCards.status === "mystery") {
-                    mysteryCardMessage.style.display = "block";
-                    if (revealedCards.length === 2) hideCard(revealedCards[0]);
-                    revealedCards = [];
-                    revealedCards.status = "";
-                }
-            });
-            outerTileElt.appendChild(tileElt);
-            rowElt.appendChild(outerTileElt);
-            tileId++;
-            index++;
-        }
-        board.appendChild(rowElt);
-    }
-    return board;
+    shuffledCards = shuffle(nbCards, nbMysteryCards);
+    updateView();
 }
 
 
 // Vérifie si il y a déjà une carte retournée ; si c'est le cas, compare les deux cartes et change le status de revealedCards en fonction
-function cardCheck(tile) {
-    revealedCards.push(tile);
+function cardCheck(card) {
+    revealedCards.push(card);
     if (revealedCards.length === 2) {
-        if (revealedCards[0].card === revealedCards[1].card) {
+        if (revealedCards[1] === "mystery") revealedCards.status = "mystery";
+        else if (revealedCards[1].name === revealedCards[0].name) {
             revealedCards.status = "win";
-        } else if (revealedCards[1].card === "mystery") revealedCards.status = "mystery";
-        else revealedCards.status = "lose"
-    } else if (revealedCards[0].card === "mystery") revealedCards.status = "mystery";
+        } else revealedCards.status = "lose";
+    } else if (revealedCards[0] === "mystery") revealedCards.status = "mystery";
 }
 
-function revealCard(tile, bgUrl) {
-    tile.style.backgroundImage = bgUrl;
-    tile.style.backgroundColor = "rgba(200, 200, 200, 0.6";
+function revealCard(card) {
+    card.isRevealed = true;
 }
 
-function hideCard(tile) {
-    tile.style.backgroundImage = "none";
-    tile.style.backgroundColor = "red";
+function hideCard(card) {
+    card.isRevealed = false;
 }
 
 function addPoint() {
@@ -142,3 +64,86 @@ function gameOver() {
     }
     document.getElementById("gameOverDiv").style.display = "block";
 }
+
+function shuffle(nbCards, nbMysteryCards) {
+    const randomArray = new Array(rows * columns);
+    randomArray.fill("");
+    for (j = 0; j < 2; j++) {
+        for (i = 1; i < Math.floor(rows * columns / 2) + 1; i++) {
+            let randomNumber = Math.floor(Math.random() * nbCards);
+            while (randomArray[randomNumber] != "") {
+                randomNumber = Math.floor(Math.random() * nbCards);
+            }
+            randomArray[randomNumber] = i;
+        }
+    }
+    const shuffledCards = randomArray.map(value => {
+        return characters.filter(character => character === value);
+    })
+    if (nbMysteryCards) {
+        for (let i = 0; i < shuffledCards.length; i++) {
+            if (shuffledCards[i] === "") {
+                shuffledCards[i] = "mystery";
+                shuffledCards[i].isRevealed = false;
+                shuffledCards[i].class = "mystery";
+            }
+        }
+    }
+
+    return shuffledCards;
+}
+
+function handleCardClick(card) {
+    revealCard(card);
+    cardCheck(card);
+    if (revealedCards.status === "win") {
+        addPoint();
+        if (nbPoints === nbCards / 2) {
+            win = true;
+            gameOver();
+        }
+        revealedCards[0].style.pointerEvents = "none";
+        revealedCards[1].style.pointerEvents = "none";
+        revealedCards = [];
+        revealedCards.status = "";
+    }
+    else if (revealedCards.status === "lose") {
+        document.body.style.pointerEvents = "none";
+        setTimeout(() => {
+            hideCard(revealedCards[0]);
+            hideCard(revealedCards[1]);
+            revealedCards = [];
+            revealedCards.status = "";
+            document.body.style.pointerEvents = "auto";
+        }, 1000);
+    } else if (revealedCards.status === "mystery") {
+        mysteryCardMessage.style.display = "block";
+        if (revealedCards.length === 2) hideCard(revealedCards[0]);
+        revealedCards = [];
+        revealedCards.status = "";
+    }
+    board.innerHTML = "";
+    updateView();
+}
+
+function updateView() {
+    let index = 0;
+    for (let i = 0; i < rows; i++) {
+        HTMLContent = '<div class="custom-row">'
+        for (let j = 0; j < columns; j++) {
+            const card = shuffledCards[index];
+            HTMLContent +=
+                `<div style="margin: ${MARGIN}px; width: calc(100% / ${columns}); max-width: 200px;">` +
+                    `<div id="${card.id}" class="card" style="${card.isRevealed ? `background-image: url(${card.imageUrl}); background-color: rgba(200, 200, 200, 0.6);` : "background-color: red;"}"></div>` +
+                `</div>`;
+            index++;
+        }
+        HTMLContent += '</div>'
+        board.innerHTML += HTMLContent;
+        for (let k = 0; k < rows * columns; k++) {
+            
+        }
+    }
+}
+
+newGame(5,5,1);

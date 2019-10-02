@@ -4,6 +4,7 @@ class Character {
         this._id = id;
         this._imageUrl = `./images/characters/${name.toLowerCase().replace(" ", "_").replace(".", "")}.png`
         this._sound = new Audio(`./sounds/${name.toLowerCase().replace(" ", "_").replace(".", "")}.wav`);
+        this.isRevealed = false;
     }
 
     get name() {
@@ -48,11 +49,5 @@ let index = 1;
 charactersNames.forEach(characterName => {
     const character = new Character(characterName, index)
     characters.push(character);
-    const imgElt = document.createElement("img");
-    imgElt.src = characters[index-1].imageUrl;
-    imgElt.addEventListener('click', () => character.playSound());
-    document.body.appendChild(imgElt);
     index++;
 });
-
-console.log(characters[Math.floor(Math.random() * 17)]);
