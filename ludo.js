@@ -1,4 +1,4 @@
-let cpt = 5;
+let cpt = 120;
 let x;
 function decompte() {
   if (cpt >= 0) {
