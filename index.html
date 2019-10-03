@@ -23,23 +23,28 @@
     </div> -->
 
     <img id="logo" class="mx-auto" src="https://image.noelshack.com/fichiers/2019/39/3/1569413346-logomemory.png" alt="Logo South Park">
-      
+    
+    <div id="demoDiv" class="d-flex flex-column align-items-center">
+      <label for="demo">Demo Mode</label>
+      <input id="demo" class="apple-switch" type="checkbox">
+      <button type="button" class="mt-3 btn btn-light" id="demoShuffle" onclick="boardShuffle()">Shuffle</button>
+    </div>
     <div class="mx-5">
       <div id="gameBoard" class="row mt-5 align-items-center">
         <div id="player1" class="col-3 player text-center side-info">
           <h2 id="player1Name"></h2>
-          <p id="counter">0</p>
+          <p id="counter1">0</p>
           <img id="avatarPlayer1" src="" alt="">
         </div>
         <div id="boardDiv" class="col-6">
           <div id="board"></div>
         </div>
         <div id="player2" class="col-3 player text-center side-info">
-          <h2>Joueur 2</h2>
-          <p>Nombre de coups : <span id="counter2"></span></p>
-          <img id="avatarPlayer1" src="" alt="">
+          <h2 id="player2Name"></h2>
+          <p id="counter2">0</p>
+          <img id="avatarPlayer2" src="" alt="">
         </div>
-        <div class="col-3 player text-center side-info">
+        <div id="chronoDiv" class="col-3 player text-center side-info">
           <h2>Temps restant</h2>
           <p id="chrono"></p>
         </div>
