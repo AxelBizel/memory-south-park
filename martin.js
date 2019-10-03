@@ -190,5 +190,4 @@ class Player {
     }
 }
 
-
 newGame(5,5,1,2);
