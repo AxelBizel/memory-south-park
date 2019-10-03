@@ -5,13 +5,13 @@ let nbPoints = 0;
 let win = false;
 const mysteryCardMessage = document.getElementById("mysteryCard");
 const logo = document.getElementById("logo");
-const gameOverElt = document.getElementById("gameOver")
+const gameOverElt = document.getElementById("gameOver");
+const board = document.getElementById("board");
 
 mysteryCardMessage.addEventListener("click", (e) => {
     e.target.style.display = "none";
 });
 
-// This function generates and return a new board div element with the numbers of rows and columns as arguments
 function newGame(nbRows, nbColumns, nbMysteryCards) {
     rows = nbRows;
     columns = nbColumns;
@@ -21,7 +21,6 @@ function newGame(nbRows, nbColumns, nbMysteryCards) {
     logo.style.position = "absolute";
     logo.style.width = "20%";
     logo.style.left = "50px";
-    const board = document.getElementById("board");
     revealedCards = [];
     revealedCards.status = "";
     shuffledCards = shuffle(nbCards, nbMysteryCards);
@@ -50,7 +49,7 @@ function hideCard(card) {
 
 function addPoint() {
     const counter = document.getElementById('counter');
-    nbPoints++
+    nbPoints++;
     counter.innerText = nbPoints;    
 }
 
@@ -104,8 +103,8 @@ function handleCardClick(card) {
             win = true;
             gameOver();
         }
-        // revealedCards[0].style.pointerEvents = "none";
-        // revealedCards[1].style.pointerEvents = "none";
+        document.getElementById(revealedCards[0].id).style.pointerEvents = "none";
+        document.getElementById(revealedCards[1].id).style.pointerEvents = "none";
         revealedCards = [];
         revealedCards.status = "";
         updateView();
@@ -135,7 +134,7 @@ function updateView() {
             const card = shuffledCards[index];
             HTMLContent +=
                 `<div style="margin: ${MARGIN}px; width: calc(100% / ${columns}); max-width: 200px;">` +
-                    `<div card=${card} class="card" style="${card.isRevealed ? `background-image: url(${card.bgUrl}); background-color: rgba(200, 200, 200, 0.6);` : "background-color: red;"}" onclick="handleCardClick(shuffledCards[${index}])"></div>` +
+                    `<div id ="${card.id}" card=${card} class="card" style="${card.isRevealed ? `background-image: url(${card.bgUrl}); background-color: rgba(200, 200, 200, 0.6);` : "background-color: red;"}" onclick="handleCardClick(shuffledCards[${index}])"></div>` +
                 `</div>`;
             index++;
         }
