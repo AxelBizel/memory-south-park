@@ -16,7 +16,7 @@
 }
 #divPseudoAvatarSelector .selected {
     background-color: blue;
-    border-radius: 30px;
+    border-radius: 50%;
 }
 #avatarSelector {
     display: flex;

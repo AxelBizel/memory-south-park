@@ -1,3 +1,14 @@
+players :{
+    player1:{
+        userName : "";
+        choosenAvatar :"";
+    }
+    player2{
+        userName : "";
+        choosenAvatar: "";
+    }
+}
+
 // Affiche les avatars (si besoin changer valeur)
 
 const avatarNumber = 4
