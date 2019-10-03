@@ -1,4 +1,4 @@
-.tile {
+.card {
     border: 5px solid black;
     border-radius: 5px;
     padding-top: 100%;
@@ -63,7 +63,7 @@
 */
 }
 
-html, body, div, span, applet, object, iframe,
+/* html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
@@ -81,7 +81,7 @@ time, mark, audio, video {
 	border: 0;
 	font-size: 100%;
 	vertical-align: baseline;
-}
+} */
 /* HTML5 display-role reset for older browsers */
 
 body {
@@ -89,6 +89,7 @@ body {
     flex-direction: column;
     background-image: url(https://image.noelshack.com/fichiers/2019/39/3/1569414232-kennybg.jpg);
     background-attachment: scroll;
+    color: white;
 }
 
 
@@ -109,7 +110,7 @@ form {
     margin-top: 40px;
 }
 
-#player2 {
+.side-info {
     display:none;
 }
 
@@ -145,12 +146,51 @@ form {
     margin: 15% auto;
 }
 
-.btn, .btn-outline-secondary {
-    color: black !important;
-    border-color: black;
-}
-
 #userName {
     border: 5px solid black;
     border-radius: 5px;
+}
+
+#demoDiv {
+    position: absolute;
+    top: 16px;
+    right: 50px;
+}
+
+input.apple-switch {
+    position: relative;
+    -webkit-appearance: none;
+    outline: none;
+    width: 50px;
+    height: 30px;
+    background-color: #fff;
+    border: 1px solid #D9DADC;
+    border-radius: 50px;
+    box-shadow: inset -20px 0 0 0 rgba(0,0,0,0.05);
+}
+
+input.apple-switch:after {
+    content: "";
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    background: transparent;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    box-shadow: 2px 4px 6px rgba(0,0,0,0.2);
+}
+
+input.apple-switch:checked {
+    box-shadow: inset 20px 0 0 0 #4ed164;
+    border-color: #4ed164;
+}
+
+input.apple-switch:checked:after {
+    left: 20px;
+    box-shadow: -2px 4px 3px rgba(0,0,0,0.05);
+}
+
+#demoShuffle {
+    display: none;
 }
