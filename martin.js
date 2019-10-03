@@ -131,14 +131,3 @@ function addPoint() {
     nbPoints++
     counter.innerText = nbPoints;    
 }
-
-function gameOver() {
-    if (win) {
-        gameOverElt.innerText = `Bravo, tu as gagné en ${120 - cpt  - 1} secondes !`;
-        clearTimeout(x);
-    }
-    else {
-        gameOverElt.innerText = `Tu as perdu et n'a trouvé que ${nbPoints} paires. C'est nul !`
-    }
-    document.getElementById("gameOverDiv").style.display = "block";
-}
