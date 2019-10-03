@@ -7,17 +7,33 @@
     <title>Memory-pushers</title>
   </head>
   <body>
-    <div id="divPseudoAvatarSelector">
+    <div class ="pseudoAvatarSelector" id="divPseudoAvatarSelector1Player" display = none >
         Nom joueur :<br>
         <input type="text" name="username" id="userName">
         <br>
         Choisi ton personnage
-        <ul id=avatarSelector>
+        <ul id=avatarSelector class = avatarSelector>
         </ul>  
       <input type="button" value="Go!" id="submitNameAvatar">
         </div>        
     </div>
-    
-    <script src="aurelie.js"></script>
+    <div class ="pseudoAvatarSelector" id="divPseudoAvatarSelector2Players">
+      Nom joueur 1:<br>
+      <input type="text" name="username" id="userName">
+      <br>
+      Choisi ton personnage
+      <ul id=avatarSelector1 class = avatarSelector>
+      </ul>  
+      Nom joueur 2:<br>
+      <input type="text" name="username" id="userName">
+      <br>
+      Choisi ton personnage
+      <ul id=avatarSelector2 class = avatarSelector>
+      </ul> 
+    <input type="button" value="Go!" id="submitNameAvatar">
+      </div>        
+  </div>
+    <script src="selection1Player.js"></script>
+    <script src="selection2Players.js"></script>
   </body>
 </html>
