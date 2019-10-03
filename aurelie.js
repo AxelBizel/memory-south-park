@@ -8,17 +8,32 @@ players :{
         choosenAvatar: "";
     }
 }
-class Avatars {
-    constructor (_name, _url, _index){
-        this._name = name;
-        this._url = 
-    }
-}
+
 avatars : {
     kenny : {
         name : "Kenny";
         url : "avatars/kenny.png"
-
+        id : 1
+    }
+    kyle : {
+        name : "Kyle";
+        url : "avatars/kyle.png"
+        id : 2
+    }
+    cartman : {
+        name : "Cartman";
+        url : "avatars/cartman.png"
+        id : 3
+    }
+    jimmy : {
+        name : "Jimmy";
+        url : "avatars/jimmy.png"
+        id : 4
+    }
+    wendy : {
+        name : "Wendy";
+        url : "avatars/wendy.png"
+        id : 5
     }
 }
 
