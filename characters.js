@@ -44,9 +44,6 @@ const charactersNames = [
     'Officer Barbrady',
 ];
 const characters = [];
-<<<<<<< HEAD
-let index = 1;
-=======
 let index = 1;
 
 charactersNames.forEach(characterName => {
@@ -56,4 +53,3 @@ charactersNames.forEach(characterName => {
 });
 
 characters.push(new Character('Mystery', 'mystery'));
->>>>>>> shuffle
