@@ -4,6 +4,7 @@ class Character {
         this._id = id;
         this._imageUrl = `./images/characters/${name.toLowerCase().replace(" ", "_").replace(".", "")}.png`
         this._sound = new Audio(`./sounds/${name.toLowerCase().replace(" ", "_").replace(".", "")}.wav`);
+        this.isRevealed = false;
     }
 
     get name() {
@@ -40,7 +41,19 @@ const charactersNames = [
     'Mr. Garrison',
     'Timmy',
     'Servietsky',
-    'Officer Barbrady'
+    'Officer Barbrady',
 ];
 const characters = [];
+<<<<<<< HEAD
 let index = 1;
+=======
+let index = 1;
+
+charactersNames.forEach(characterName => {
+    const character = new Character(characterName, index)
+    characters.push(character);
+    index++;
+});
+
+characters.push(new Character('Mystery', 'mystery'));
+>>>>>>> shuffle
