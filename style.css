@@ -2,7 +2,6 @@
     border: 5px solid black;
     border-radius: 5px;
     padding-top: 100%;
-    background: red;
     background-repeat: no-repeat;
     background-size: 180%;
     background-position: center;
@@ -36,13 +35,16 @@
 .modal-content-custom {
     border: 5px solid black;
     border-radius: 5px;
-    background-image: url(https://image.noelshack.com/fichiers/2019/39/3/1569414232-kennybg.jpg);
+    background-image: url(https://image.noelshack.com/fichiers/2019/40/4/1570116828-1569414232-kennybg.jpg);
     ;
     margin: 5% auto;
     width: 50%;
     padding: 16px;
     text-align: center;
     border-radius: 6px;
+    color: black;
+    font-size: 2em;
+    font-weight: 600
 }
 
 #mysteryCard {
@@ -116,8 +118,9 @@ body {
 .side-info h2 {
     border: 5px solid black;
     border-radius: 5px;
-    background-color: red;
+    background-color:orange;
     font-size: 24px;
+    color: black;
 }
 
 .side-info p {
@@ -133,6 +136,10 @@ body {
     font-size: 24px;
     line-height: 30px;
     font-weight: bold;
+}
+
+#gameOver p {
+    font-size: 1.5em;
 }
 
 #gameOver h3 {

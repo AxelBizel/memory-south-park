@@ -8,14 +8,13 @@
 #submitNameAvatar {
     text-align: center;
     margin: 0 auto;
-
 } 
 
 #divPseudoAvatarSelector li {
     list-style-type: none;
 }
 #divPseudoAvatarSelector .selected {
-    background-color: blue;
+    background-color: rgba(255, 115, 0, 0.5);
     border-radius: 30px;
 }
 #avatarSelector {

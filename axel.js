@@ -11,7 +11,7 @@ function gameOver() {
         if (nbPoints <2) {
             gameOverElt.innerHTML = `<h3>TU CRAINS !</h3> 
         </br> </br>
-        <img src="https://framapic.org/vFnNDUQ4bsbM/2k2NUdn9MJFl.png" width="80%">
+        <img src="https://image.noelshack.com/fichiers/2019/40/4/1570116609-terranceetphilippe-1.png" width="80%">
         <br>
         <p> Tu n'as trouvé que ${nbPoints} paire.
         </br> C'est nul !</p>`
@@ -19,7 +19,7 @@ function gameOver() {
         else {
             gameOverElt.innerHTML = `<h3>TU CRAINS !</h3> 
         </br> </br>
-        <img src="https://framapic.org/vFnNDUQ4bsbM/2k2NUdn9MJFl.png" width="80%">
+        <img src="https://image.noelshack.com/fichiers/2019/40/4/1570116609-terranceetphilippe-1.png" width="80%">
         <br>
         <p> Tu n'as trouvé que ${nbPoints} paires.
         </br> C'est nul !</p>`

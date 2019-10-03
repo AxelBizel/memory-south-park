@@ -142,7 +142,7 @@ function updateView() {
             const card = shuffledCards[index];
             HTMLContent +=
             `<div style="margin: ${MARGIN}px; width: calc(100% / ${columns}); max-width: 200px;">` +
-            `<div id ="${card.id}" card=${card} class="card" style="${card.isRevealed ? `background-image: url(${card.bgUrl}); background-color: rgba(200, 200, 200, 0.6);` : "background-color: red;"}" onclick="handleCardClick(shuffledCards[${index}])">${!card.isRevealed && demo.checked ? card.name : ""}</div>` +
+            `<div id ="${card.id}" card=${card} class="card" style="${card.isRevealed ? `background-image: url(${card.bgUrl}); background-color: rgba(200, 200, 200, 0.6);` : "background-color: #ff9a02"}" onclick="handleCardClick(shuffledCards[${index}])">${!card.isRevealed && demo.checked ? card.name : ""}</div>` +
             `</div>`;
             index++;
         }
