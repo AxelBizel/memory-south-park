@@ -1,4 +1,4 @@
-.tile {
+.card {
     border: 5px solid black;
     border-radius: 5px;
     padding-top: 100%;
@@ -89,6 +89,7 @@ body {
     align-items: center;
     background-image: url(https://image.noelshack.com/fichiers/2019/39/3/1569414232-kennybg.jpg);
     background-attachment: scroll;
+    color: white;
 }
 
 #logo {
