@@ -36,9 +36,10 @@
 .modal-content-custom {
     border: 5px solid black;
     border-radius: 5px;
-    background: red;
-    margin: 25% auto;
-    width: 60%;
+    background-image: url(https://image.noelshack.com/fichiers/2019/39/3/1569414232-kennybg.jpg);
+    ;
+    margin: 5% auto;
+    width: 50%;
     padding: 16px;
     text-align: center;
     border-radius: 6px;
@@ -130,6 +131,14 @@ body {
 
 #gameOver {
     font-size: 24px;
+    line-height: 30px;
+    font-weight: bold;
+}
+
+#gameOver h3 {
+    font-size: 40px;
+    font-weight : bold;
+    line-height: 30px;
 }
 
 #divPseudoAvatarSelector {
