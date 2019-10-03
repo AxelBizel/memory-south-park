@@ -8,6 +8,19 @@ players :{
         choosenAvatar: "";
     }
 }
+class Avatars {
+    constructor (_name, _url, _index){
+        this._name = name;
+        this._url = 
+    }
+}
+avatars : {
+    kenny : {
+        name : "Kenny";
+        url : "avatars/kenny.png"
+
+    }
+}
 
 // Affiche les avatars (si besoin changer valeur)
 
