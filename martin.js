@@ -82,17 +82,6 @@ function hideCard(card) {
     card.isRevealed = false;
 }
 
-function gameOver() {
-    if (win) {
-        gameOverElt.innerText = `Bravo, tu as gagné en ${120 - cpt  - 1} secondes !`;
-        clearTimeout(x);
-    }
-    else {
-        gameOverElt.innerText = `Tu as perdu et n'a trouvé que ${nbPoints} paires. C'est nul !`
-    }
-    document.getElementById("gameOverDiv").style.display = "block";
-}
-
 function shuffle(cards) {
     const shuffledCards = new Array(cards.length);
     shuffledCards.fill("");
@@ -202,4 +191,4 @@ class Player {
 }
 
 
-newGame(5,5,1,1);
+newGame(5,5,1,2);
