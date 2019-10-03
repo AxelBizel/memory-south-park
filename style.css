@@ -94,13 +94,11 @@ body {
 
 form {
     display: flex;
-    font-size: 3em;
     margin: 30px 30%;
     flex-direction: column;
     text-align: center;
     border: 1px solid black;
 }
-
 
 #logo {
     display: flex;
@@ -132,7 +130,7 @@ form {
     font-size: 24px;
 }
 
-#divPseudoAvatarSelector {
+#formContent, #divPseudoAvatarSelector, #divPseudoAvatarSelector2 {
     margin: 15% auto;
 }
 

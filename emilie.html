@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
+    <title>South Park Memory</title>
+  </head>
+  <body>
+    <div id="logo"><img src="https://image.noelshack.com/fichiers/2019/39/3/1569413346-logomemory.png" alt="Logo South Park"></div>
+ <!-- LA SECURITE --> 
+
+ <div id="openingForm">
+    <div id="logo"><img src="https://image.noelshack.com/fichiers/2019/39/3/1569413346-logomemory.png" alt="Logo South Park"></div>
+
+  <div id="formContent">
+  <form>
+      <section>
+          <label>Nombre de joueurs :</label>
+          <select id="playerSelector">
+              <option value="onePlayer">Un joueur</option>
+              <option value="twoPlayers">Deux joueurs</option>
+          </select>
+      </section>
+      <section>
+          <label>Niveau de difficulté :</label>
+          <select id="diffSelector">
+              <option value="easy">Combat d'infirme</option>
+              <option value="difficult">Mode Satan</option>
+          </select>
+      </section>
+      <button type="button" id="button1">C'est parti !</button>
+  </form>
+  </div>
+  </div>
+
+  <div id="divPseudoAvatarSelector">
+      <div id="logo"><img src="https://image.noelshack.com/fichiers/2019/39/3/1569413346-logomemory.png" alt="Logo South Park"></div>
+
+    <form>
+      <div id="playerOne">
+      Joueur 1 :<br>
+      <input type="text" name="username" id="userName">
+      <div id=avatarSelector>
+        
+      </div>
+      </div>
+
+      <input type="button" value="Go!" id="submitNameAvatar">
+    </form>  
+  </div>
+
+    <div id="divPseudoAvatarSelector2">
+    
+      <form>
+
+      <div id="playerTwo">
+        Joueur 2:<br>
+        <input type="text" name="username" id="userName2">
+        <div id=avatarSelector></div>
+      </div>
+
+      <input type="button" value="Go!" id="submitNameAvatar2">
+    </form>
+    </div>
+
+
+  </body>
+  <script type="text/javascript" src="emilie.js"></script>
+
+</html>

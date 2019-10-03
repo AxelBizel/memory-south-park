@@ -16,6 +16,8 @@ function initializeAvatar(avatarNumber){
     divAvatar.style.width = "150px";
     document.getElementById("avatarSelector").appendChild(divAvatar);
     }
+    //divAvatar2 = divAvatar.cloneNode;
+    //document.getElementById("avatarSelector2").appendChild(divAvatar2);
 }
 // Permet de cliquer sur les avatars !
 let choosenAvatar;
@@ -48,3 +50,4 @@ document.getElementById("submitNameAvatar").addEventListener('click', (e)=>{
         alert("Choisi un pseudo et un avatar!")
     }
 });
+
