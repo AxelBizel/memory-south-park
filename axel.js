@@ -5,21 +5,21 @@ function gameOver() {
             </br> </br>
             <img src="https://framapic.org/j58ZTNke6Syp/sZ5RwV3u8zUv.png" width="80%">
             <br>
-            <p> Tu as trouvé ${player1.counter - player2.counter} de plus que ce débile de ${player2.name}!</p>`;
+            <p> Tu as trouvé ${player1.counter - player2.counter} paires de plus que ce débile de ${player2.name}!</p>`;
         }
         else if (player2.counter > player1.counter) {
             gameOverElt.innerHTML = `<h3>${player2.name} wins !</h3>
             </br> </br>
             <img src="https://framapic.org/j58ZTNke6Syp/sZ5RwV3u8zUv.png" width="80%">
             <br>
-            <p> Tu as trouvé ${player2.counter - player1.counter} de plus que ce débile de ${player1.name}!</p>`;
+            <p> Tu as trouvé ${player2.counter - player1.counter} paires de plus que ce débile de ${player1.name}!</p>`;
         }
         else {
             gameOverElt.innerHTML = `<h3> Égalité !</h3>
             </br> </br>
             <img src="https://framapic.org/j58ZTNke6Syp/sZ5RwV3u8zUv.png" width="80%">
             <br>
-            <p> ${player1.name} et ${player2.name} ont trouvé autant de paires. Un combat d'infirmes est prévu pour les départager. !</p>`;
+            <p> ${player1.name} et ${player2.name} ont trouvé autant de paires. Un combat d'infirmes est prévu pour les départager !</p>`;
         }
     }
     else {
