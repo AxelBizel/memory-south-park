@@ -5,7 +5,6 @@
          for (let i=1; i<=avatarNumber; i++){
          divAvatar = document.createElement("li");
          avatarUrl = `url(avatars/${i}.png)`;
-         console.log(avatarUrl);
          divAvatar.style.backgroundImage = avatarUrl;
          divAvatar.style.backgroundPosition = "center center";
          divAvatar.setAttribute("onclick", `selecter${j}(${i})`);
@@ -56,7 +55,6 @@ document.getElementById("submitNameAvatar2Players").addEventListener('click', (e
         player2 = new Player(playerName2, avatarPlayer2, 2);
         if (difficulty === "easy") newGame(5, 5, 1);
         else newGame(6, 6, 2);
-        console.log(player1)
-        console.log(player2)
+        document.getElementById("demoNewGame").addEventListener("click", () => newGame(3, 3, 1));
     }
 });        

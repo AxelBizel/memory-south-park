@@ -8,6 +8,7 @@ const logo = document.getElementById("logo");
 const gameOverElt = document.getElementById("gameOver");
 const board = document.getElementById("board");
 const demo = document.getElementById("demo");
+let x = null;
 
 mysteryCardMessage.addEventListener("click", (e) => {
     e.target.style.display = "none";
@@ -16,11 +17,19 @@ mysteryCardMessage.addEventListener("click", (e) => {
 demo.addEventListener("change", (e) => {
     updateView();
     const demoShuffle = document.getElementById("demoShuffle");
-    if (e.target.checked) demoShuffle.style.display = "block";
-    else demoShuffle.style.display = "none";
+    const demoNewGame = document.getElementById("demoNewGame");
+    if (e.target.checked) {
+        demoShuffle.style.display = "block";
+        demoNewGame.style.display = "block";
+    }
+    else {
+        demoShuffle.style.display = "none";
+        demoNewGame.style.display = "none";
+    }
 });
 
 function newGame(nbRows, nbColumns, nbMysteryCards) {
+    if (x) clearInterval(x);
     if (difficulty === "easy") {
         cpt = 120;
       }
@@ -37,6 +46,8 @@ function newGame(nbRows, nbColumns, nbMysteryCards) {
     currentPlayer = player1;
     document.getElementById("player1Name").textContent = player1.name;
     document.getElementById("avatarPlayer1").src = `avatars/${player1.avatar}.png`
+    win = false;
+    nbCards = rows * columns - nbMysteryCards;
     if (player2) {
         multiplayer = true;
         player2.resetCounter();
@@ -48,10 +59,9 @@ function newGame(nbRows, nbColumns, nbMysteryCards) {
         multiplayer = false;
         document.getElementById("player2").style.display = "none";
         document.getElementById("chronoDiv").style.display = "block";
+        document.getElementById("chrono").innerHTML = cpt;
         decompte();
     }
-    win = false;
-    nbCards = rows * columns - nbMysteryCards;
     let index = 1;
     const cards = []
     for (let i = 0; i < 2; i++) {
@@ -121,7 +131,10 @@ function handleCardClick(card) {
     revealCard(card);
     updateView();
     cardCheck(card);
-    if (revealedCards.status === "win") {
+    if (revealedCards.status === "win" || revealedCards.status === "kenny") {
+        if (revealedCards.status === "kenny") {
+            isKennyDead = true;
+        }
         if (hasStanVomitted && hasPlayerPlayedSinceStanVomitted) {
             vomiElt.style.display = "none";
             hasStanVomitted = true;
@@ -133,15 +146,18 @@ function handleCardClick(card) {
             win = true;
             gameOver();
         } else if (multiplayer) {
-            if (player1.counter + player2.counter === nbCards / 2) gameOver();
+            if (player1.counter + player2.counter === nbCards / 2) {
+                win = true;
+                gameOver();
+            }
         }
+        if (isKennyDead) gameOver();
         document.getElementById(revealedCards[0].id).style.pointerEvents = "none";
         document.getElementById(revealedCards[1].id).style.pointerEvents = "none";
         revealedCards = [];
         revealedCards.status = "";
         updateView();
-    }
-    else if (revealedCards.status === "lose") {
+    } else if (revealedCards.status === "lose") {
         if (hasStanVomitted && hasPlayerPlayedSinceStanVomitted) vomiElt.style.display = "none";
         else if (hasStanVomitted) hasPlayerPlayedSinceStanVomitted = true;
         document.body.style.pointerEvents = "none";
@@ -166,9 +182,6 @@ function handleCardClick(card) {
             boardShuffle();
             document.body.style.pointerEvents = "auto";
         }, 1000);
-    } else if (revealedCards.status === "kenny") {
-        isKennyDead = true;
-        gameOver();
     } else updateView();
 }
 
@@ -257,7 +270,7 @@ function gameOver() {
         newGame(5,5,1,player1, player2);
         document.getElementById("gameOverDiv").style.display = "none";
     });
-    if (isKennyDead === true){
+    if (isKennyDead && !win){
         gameOverElt.innerHTML = `<h3>OMG!</h3>
             </br> </br>
             <img src="http://s3.amazonaws.com/blogs.comedycentral.com-production/wp-content/uploads/sites/58/2014/09/1514_KennyDeath.gif" width="80%">
@@ -297,7 +310,7 @@ function gameOver() {
                 <img src="https://framapic.org/j58ZTNke6Syp/sZ5RwV3u8zUv.png" width="80%">
                 <br>
                 <p> Tu as trouvé toutes les paires en ${120 - cpt  - 1} secondes !</p>`;
-                clearTimeout(x);
+                window.clearInterval(x);
             }
             else if (nbPoints <2) {
                 gameOverElt.innerHTML = `<h3>TU CRAINS !</h3> 
@@ -306,7 +319,7 @@ function gameOver() {
                 <br>
                 <p> Tu n'as trouvé que ${nbPoints} paire.
                 </br> C'est nul !</p>`;
-                clearTimeout(x);
+                window.clearInterval(x);
             }
             else {
                 gameOverElt.innerHTML = `<h3>TU CRAINS !</h3> 
@@ -315,7 +328,7 @@ function gameOver() {
                 <br>
                 <p> Tu n'as trouvé que ${nbPoints} paires.
                 </br> C'est nul !</p>`;
-                clearTimeout(x);
+                window.clearInterval(x);
             }
         }
     }
@@ -324,16 +337,16 @@ function gameOver() {
 }
 
 function decompte() {
-    let x;
-    if (cpt >= 0) {
-      document.getElementById("chrono").innerHTML = cpt;
-      cpt--;
-      x = setTimeout(decompte, 1000);
-    } else {
-      clearTimeout(x);
-      gameOver();
-    }
-  }   
+    x = setInterval(() => {
+        if (cpt >= 0) {
+            cpt--;
+            document.getElementById("chrono").innerHTML = cpt;
+        } else {
+            window.clearInterval(x);
+            gameOver();
+        }
+    }, 1000)
+}   
 
 player1 = new Player("Martin", "", 1);
 player2 = new Player("Joueur 2", "", 2)
