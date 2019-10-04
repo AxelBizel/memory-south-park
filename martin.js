@@ -15,21 +15,19 @@ mysteryCardMessage.addEventListener("click", (e) => {
 
 demo.addEventListener("change", (e) => {
     updateView();
-    const demoShuffle = document.getElementById("demoShuffle")
+    const demoShuffle = document.getElementById("demoShuffle");
     if (e.target.checked) demoShuffle.style.display = "block";
     else demoShuffle.style.display = "none";
 });
 
-function newGame(nbRows, nbColumns, nbMysteryCards, nbPlayers) {
+function newGame(nbRows, nbColumns, nbMysteryCards, player1, player2) {
     rows = nbRows;
     columns = nbColumns;
     document.getElementById("player1").style.display = "block";
-    player1 = new Player("Martin", "", 1);
     currentPlayer = player1;
     document.getElementById("player1Name").textContent = player1.name;
-    if (nbPlayers === 2) {
+    if (player2) {
         multiplayer = true;
-        player2 = new Player("Joueur 2", "", 2)
         document.getElementById("player2").style.display = "block";
         document.getElementById("chronoDiv").style.display = "none";
         document.getElementById("player2Name").textContent = player2.name;
@@ -196,4 +194,6 @@ class Player {
     }
 }
 
-newGame(5,5,1,2);
+player1 = new Player("Martin", "", 1);
+player2 = new Player("Joueur 2", "", 2)
+newGame(5,5,1, player1, player2);
