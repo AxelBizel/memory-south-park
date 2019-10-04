@@ -1,4 +1,4 @@
-if playerSelector.value === "easy"{
+if (playerSelector.value === "easy") {
   let cpt = 120;
 }
 else {
