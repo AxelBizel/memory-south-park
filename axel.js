@@ -36,7 +36,7 @@ function gameOver() {
             </br> </br>
             <img src="https://framapic.org/vFnNDUQ4bsbM/2k2NUdn9MJFl.png" width="80%">
             <br>
-            <p> Tu n'as trouvé que ${nbPoints} paire.
+            <p> Tu n'as trouve que ${nbPoints} paire.
             </br> C'est nul !</p>`
             }
         else {

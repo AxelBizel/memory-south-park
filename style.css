@@ -1,5 +1,5 @@
 .card {
-    border: 5px solid black;
+    border: 4px solid black;
     border-radius: 5px;
     padding-top: 100%;
     background-color: orange;
@@ -34,7 +34,7 @@
 }
 
 .modal-content-custom {
-    border: 5px solid black;
+    border: 4px solid black;
     border-radius: 5px;
     background-image: url(https://image.noelshack.com/fichiers/2019/40/4/1570116828-1569414232-kennybg.jpg);
     ;
@@ -94,12 +94,13 @@ body {
     background-image: url(https://image.noelshack.com/fichiers/2019/39/3/1569414232-kennybg.jpg);
     background-attachment: scroll;
     color: white;
+    padding: 3%;
+    font-family: "Southpark"
 }
 
 #logo {
     display: flex;
     justify-content: center;
-    margin-top: 40px;
 }
 
 #playerinfo {
@@ -117,11 +118,12 @@ body {
 }
 
 .side-info h2 {
-    border: 5px solid black;
+    border: 4px solid rgb(0, 0, 0);
     border-radius: 5px;
     background-color: orange;
-    font-size: 24px;
+    font-size: 1.7em;
     color: black;
+    padding: 10px;
 }
 
 .side-info p {
@@ -154,7 +156,7 @@ body {
 }
 
 #userName {
-    border: 5px solid black;
+    border: 4px solid black;
     border-radius: 5px;
 }
 
@@ -203,5 +205,10 @@ input.apple-switch:checked:after {
 }
 
 .currentPlayer {
-    background-color: red !important;
+    background-color: rgb(30, 225, 0) !important;
 }
+
+@font-face {
+    font-family: "Southpark";
+    src: url("/fonts/southpark.ttf") format("ttf");
+   }
