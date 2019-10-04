@@ -20,20 +20,30 @@ demo.addEventListener("change", (e) => {
     else demoShuffle.style.display = "none";
 });
 
-function newGame(nbRows, nbColumns, nbMysteryCards, player1, player2) {
+function newGame(nbRows, nbColumns, nbMysteryCards) {
+    if (difficulty === "easy") {
+        cpt = 120;
+      }
+      else {
+        cpt = 90;
+      }
     isKennyDead = false;
     hasStanVomitted = false;
     hasPlayerPlayedSinceStanVomitted = false;
+    player1.resetCounter();
     rows = nbRows;
     columns = nbColumns;
     document.getElementById("player1").style.display = "block";
     currentPlayer = player1;
     document.getElementById("player1Name").textContent = player1.name;
+    document.getElementById("avatarPlayer1").src = `avatars/${player1.avatar}.png`
     if (player2) {
         multiplayer = true;
+        player2.resetCounter();
         document.getElementById("player2").style.display = "block";
         document.getElementById("chronoDiv").style.display = "none";
         document.getElementById("player2Name").textContent = player2.name;
+        document.getElementById("avatarPlayer2").src = `avatars/${player2.avatar}.png`
     } else {
         multiplayer = false;
         document.getElementById("player2").style.display = "none";
@@ -74,9 +84,11 @@ function cardCheck(card) {
         } else if (revealedCards[1].characterId === revealedCards[0].characterId) {
             if (characters.find(character => character.id === revealedCards[1].characterId).name === "Kenny") revealedCards.status = "kenny";
              else revealedCards.status = "win";
-        } else revealedCards.status = "lose";
+        } else {
+            revealedCards.status = "lose";
             if ((characters.find(character => character.id === revealedCards[0].characterId).name === "Stan") && (characters.find(character => character.id === revealedCards[1].characterId).name === "Wendy")) vomi();
             else if ((characters.find(character => character.id === revealedCards[0].characterId).name === "Wendy") && (characters.find(character => character.id === revealedCards[1].characterId).name === "Stan")) vomi();
+        }
     } else if (revealedCards[0].characterId === "mystery") {
         revealedCards.status = "mystery";
         revealedCards.pop();
@@ -219,6 +231,11 @@ class Player {
         document.getElementById("counter" + this.id).textContent = this.counter;
         updateView();
     }
+
+    resetCounter() {
+        this.counter = 0;
+        document.getElementById("counter" + this.id).textContent = 0;
+    }
 }
 
 function vomi() {
@@ -244,8 +261,8 @@ function gameOver() {
         gameOverElt.innerHTML = `<h3>OMG!</h3>
             </br> </br>
             <img src="http://s3.amazonaws.com/blogs.comedycentral.com-production/wp-content/uploads/sites/58/2014/09/1514_KennyDeath.gif" width="80%">
-            <br>
-            <p> Ils ont buté Kenny ! Enculés !</p>`;
+            </br></br>
+            <p> Ils ont buté Kenny ! Éspèces d'enfoirés !</p>`;
             isKennyDead = false; 
     }
     
@@ -255,7 +272,7 @@ function gameOver() {
                 gameOverElt.innerHTML = `<h3>${player1.name} wins !</h3>
                 </br> </br>
                 <img src="https://framapic.org/j58ZTNke6Syp/sZ5RwV3u8zUv.png" width="80%">
-                <br>
+                </br>
                 <p> Tu as trouvé ${player1.counter - player2.counter} paires de plus que ce débile de ${player2.name}!</p>`;
             }
             else if (player2.counter > player1.counter) {
@@ -306,6 +323,18 @@ function gameOver() {
     document.getElementById("gameOverDiv").style.display = "block";
 }
 
+function decompte() {
+    let x;
+    if (cpt >= 0) {
+      document.getElementById("chrono").innerHTML = cpt;
+      cpt--;
+      x = setTimeout(decompte, 1000);
+    } else {
+      clearTimeout(x);
+      gameOver();
+    }
+  }   
+
 player1 = new Player("Martin", "", 1);
 player2 = new Player("Joueur 2", "", 2)
-newGame(5,5,1, player1, player2);
+// newGame(5,5,1, player1, player2);

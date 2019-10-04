@@ -9,12 +9,7 @@
     text-align: center;
     margin: 0 auto;
 } 
-#divPseudoAvatarSelector1Player{
-    display: none;
-}
-#divPseudoAvatarSelector2Players{
-    display: block;
-}
+
 .pseudoAvatarSelector li {
     list-style-type: none;
     background-color: blueviolet;
@@ -29,16 +24,4 @@
     flex-direction : row;
     justify-content: space-evenly;
 
-}
-
-#avatarSelectorWrap, #avatarSelectorWrap2 {
-    display: none;
-}
-
-#avatarSelectorWrap {
-    z-index: 2;
-}
-
-#avatarSelectorWrap2 {
-    z-index: 1;
 }
