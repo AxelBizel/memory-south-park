@@ -106,6 +106,8 @@ function handleCardClick(card) {
         if (!multiplayer && currentPlayer.counter === nbCards / 2) {
             win = true;
             gameOver();
+        } else if (multiplayer) {
+            if (player1.counter + player2.counter === nbCards / 2) gameOver();
         }
         document.getElementById(revealedCards[0].id).style.pointerEvents = "none";
         document.getElementById(revealedCards[1].id).style.pointerEvents = "none";
@@ -142,7 +144,7 @@ function updateView() {
             const card = shuffledCards[index];
             HTMLContent +=
             `<div style="margin: ${MARGIN}px; width: calc(100% / ${columns}); max-width: 200px;">` +
-            `<div id ="${card.id}" card=${card} class="card" style="${card.isRevealed ? `background-image: url(${card.bgUrl}); background-color: rgba(200, 200, 200, 0.6);` : "background-color: #ff9a02"}" onclick="handleCardClick(shuffledCards[${index}])">${!card.isRevealed && demo.checked ? card.name : ""}</div>` +
+            `<div id ="${card.id}" card=${card} class="card" style="${card.isRevealed ? `background-image: url(${card.bgUrl}); background-color: rgba(200, 200, 200, 0.6);` : ""}" onclick="handleCardClick(shuffledCards[${index}])">${!card.isRevealed && demo.checked ? card.name : ""}</div>` +
             `</div>`;
             index++;
         }
@@ -167,12 +169,16 @@ function boardShuffle() {
 }
 
 function togglePlayer() {
+    let otherPlayer
     if (currentPlayer === player1) {
         currentPlayer = player2;
+        otherPlayer = player1;
     } else {
         currentPlayer = player1;
+        otherPlayer = player2;
     }
-    console.log(currentPlayer)
+    document.getElementById(`player${currentPlayer.id}Name`).classList.add("currentPlayer");
+    document.getElementById(`player${otherPlayer.id}Name`).classList.remove("currentPlayer");
 }
 
 class Player {

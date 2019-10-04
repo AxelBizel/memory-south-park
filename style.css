@@ -2,6 +2,10 @@
     border: 5px solid black;
     border-radius: 5px;
     padding-top: 100%;
+<<<<<<< HEAD
+=======
+    background-color: orange;
+>>>>>>> dev
     background-repeat: no-repeat;
     background-size: 180%;
     background-position: center;
@@ -118,7 +122,11 @@ body {
 .side-info h2 {
     border: 5px solid black;
     border-radius: 5px;
+<<<<<<< HEAD
     background-color:orange;
+=======
+    background-color: orange;
+>>>>>>> dev
     font-size: 24px;
     color: black;
 }
@@ -199,4 +207,8 @@ input.apple-switch:checked:after {
 
 #demoShuffle {
     display: none;
+}
+
+.currentPlayer {
+    background-color: red !important;
 }
