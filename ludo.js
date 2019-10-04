@@ -1,4 +1,10 @@
-let cpt = 120;
+if playerSelector.value === "easy"{
+  let cpt = 120;
+}
+else {
+  let cpt = 90;
+}
+
 let x;
 function decompte() {
   if (cpt >= 0) {
