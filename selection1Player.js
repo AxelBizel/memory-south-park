@@ -7,7 +7,6 @@ function initializeAvatar(avatarNumber){
     for (let i=1; i<=avatarNumber; i++){
     divAvatar = document.createElement("li");
     avatarUrl = `url(avatars/${i}.png)`;
-    console.log(avatarUrl);
     divAvatar.style.backgroundImage = avatarUrl;
     divAvatar.style.backgroundPosition = "center center";
     divAvatar.setAttribute("onclick", `selecter(${i})`);
@@ -29,7 +28,6 @@ function selecter(channelNumber){
  // Cree variable username et avatar en fonction de l'entrée (1joueur)
  // playerName1 et avatarPlayer1
 document.getElementById("submitNameAvatar1Player").addEventListener('click', (e) => {
-    console.log(choosenAvatar)
     const userName = document.getElementById("userName").value;
      if (choosenAvatar === undefined && userName === ""){
         alert("Choisi un pseudo et un avatar!")
@@ -43,5 +41,6 @@ document.getElementById("submitNameAvatar1Player").addEventListener('click', (e)
         player2 = null;
         if (difficulty === "easy") newGame(5, 5, 1);
         else newGame(6, 6, 2);
+        document.getElementById("demoNewGame").addEventListener("click", () => newGame(3, 3, 1));
     }
 });
