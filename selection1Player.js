@@ -27,19 +27,20 @@ function selecter(channelNumber){
 choosenAvatar = document.getElementsByClassName("selected")[0].id
 
  // Cree variable username et avatar en fonction de l'entrée (1joueur)
+ // playerName1 et avatarPlayer1
 let userName;
-document.getElementById("submitNameAvatar").addEventListener('click', (e)=>{   
+document.getElementById("submitNameAvatar1Player").addEventListener('click', (e)=>{   
      if (choosenAvatar === undefined){
          alert("Choisi un avatar !")
     } else if (document.getElementById("userName").value === ""){
         alert("On a besoin de ton p'tit nom")
     } else if (choosenAvatar === avatar3){
-        gameOver()
+        isKennyDead = true;
+        return gameOver()
     } else if(document.getElementById("userName").value !== "" && choosenAvatar !== undefined){
-        document.getElementById("avatarSelectorWrap").style.display = "none";
+        document.getElementById("divPseudoAvatarSelector1Player").style.display = "none";
         playerName1 = document.getElementById("userName").value;
-        playerAvatar1 = choosenAvatar;
-        console.log(choosenAvatar);
+        avatarPlayer1 = choosenAvatar;
         board = newGame(5, 5, true);
         decompte();
         document.getElementById("board").appendChild(board);
