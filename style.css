@@ -96,13 +96,11 @@ body {
 
 form {
     display: flex;
-    font-size: 3em;
     margin: 30px 30%;
     flex-direction: column;
     text-align: center;
     border: 1px solid black;
 }
-
 
 #logo {
     display: flex;
@@ -139,10 +137,16 @@ form {
     font-weight: bold;
 }
 
+
+#formContent, #divPseudoAvatarSelector, #divPseudoAvatarSelector2 {
+  margin: 15% auto;
+}
+
 #gameOver h3 {
     font-size: 40px;
     font-weight : bold;
     line-height: 30px;
+
 }
 
 #divPseudoAvatarSelector {
