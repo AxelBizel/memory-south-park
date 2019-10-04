@@ -1,10 +1,10 @@
 .card {
-    border: 5px solid black;
+    border: 4px solid black;
     border-radius: 5px;
     padding-top: 100%;
-    background-color: orange;
+    background-image: url(./images/bgCard.jpg); /*pancarte SoutPark */
     background-repeat: no-repeat;
-    background-size: 180%;
+    background-size: 120%;
     background-position: center;
     height: 0;
 }
@@ -16,10 +16,6 @@
 
 .form-control {
     width: 100px;
-}
-
-.player h2 {
-    border-radius: 25px;
 }
 
 .modal-custom {
@@ -34,15 +30,18 @@
 }
 
 .modal-content-custom {
-    border: 5px solid black;
+    border: 4px solid black;
     border-radius: 5px;
-    background-image: url(https://image.noelshack.com/fichiers/2019/39/3/1569414232-kennybg.jpg);
+    background-image: url(https://image.noelshack.com/fichiers/2019/40/4/1570116828-1569414232-kennybg.jpg);
     ;
     margin: 5% auto;
     width: 50%;
     padding: 16px;
     text-align: center;
     border-radius: 6px;
+    color: black;
+    font-size: 2em;
+    font-weight: 600
 }
 
 #mysteryCard {
@@ -87,19 +86,19 @@ time, mark, audio, video {
 body {
     display: flex;
     flex-direction: column;
+    align-items: center;
     background-image: url(https://image.noelshack.com/fichiers/2019/39/3/1569414232-kennybg.jpg);
     background-attachment: scroll;
     color: white;
+    padding: 3%;
+    font-family: "Southpark"
 }
 
-
-
-form {
+#logo {
     display: flex;
     margin: 30px 30%;
     flex-direction: column;
     text-align: center;
-    border: 1px solid black;
 }
 
 #logo {
@@ -150,11 +149,11 @@ form {
 }
 
 #divPseudoAvatarSelector {
-    margin: 15% auto;
+    margin: 10% auto;
 }
 
 #userName {
-    border: 5px solid black;
+    border: 4px solid black;
     border-radius: 5px;
 }
 
@@ -218,4 +217,22 @@ input.apple-switch:checked:after {
     to {
         transform: scale(1);  
     }
+}
+
+.wrapPseudoSelector {
+    display: none;
+}
+
+.btn-outline-secondary {
+color: black;
+border-color: black;
+font-size: 0.7em;
+}
+
+p {
+    font-family: arial;
+}
+
+#chronoDiv h2, .currentPlayer {
+    padding: 10px;
 }

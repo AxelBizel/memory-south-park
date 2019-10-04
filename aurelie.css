@@ -8,20 +8,15 @@
 #submitNameAvatar {
     text-align: center;
     margin: 0 auto;
-
 } 
-#divPseudoAvatarSelector1Player{
-    display: none;
-}
-#divPseudoAvatarSelector2Players{
-    display: block;
-}
+
 .pseudoAvatarSelector li {
     list-style-type: none;
-    background-color: blueviolet;
-    border-radius: 50%;
+    background-color: rgba(255, 115, 0, 0.363);
+    border-radius: 25%;
 
 }
+
 .pseudoAvatarSelector .selected {
     background-color: blue;
 }
@@ -32,14 +27,3 @@
 
 }
 
-#avatarSelectorWrap, #avatarSelectorWrap2 {
-    display: none;
-}
-
-#avatarSelectorWrap {
-    z-index: 2;
-}
-
-#avatarSelectorWrap2 {
-    z-index: 1;
-}
