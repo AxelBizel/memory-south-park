@@ -21,6 +21,9 @@ demo.addEventListener("change", (e) => {
 });
 
 function newGame(nbRows, nbColumns, nbMysteryCards, player1, player2) {
+    isKennyDead = false;
+    hasStanVomitted = false;
+    hasPlayerPlayedSinceStanVomitted = false;
     rows = nbRows;
     columns = nbColumns;
     document.getElementById("player1").style.display = "block";
@@ -63,7 +66,6 @@ function newGame(nbRows, nbColumns, nbMysteryCards, player1, player2) {
 
 // Vérifie si il y a déjà une carte retournée ; si c'est le cas, compare les deux cartes et change le status de revealedCards en fonction
 function cardCheck(card) {
-    console.log(revealedCards.status)
     revealedCards.push(card);
     if (revealedCards.length === 2) {
         if (revealedCards[1].characterId === "mystery") {
@@ -73,8 +75,12 @@ function cardCheck(card) {
             if (characters.find(character => character.id === revealedCards[1].characterId).name === "Kenny") revealedCards.status = "kenny";
              else revealedCards.status = "win";
         } else revealedCards.status = "lose";
-    } else if (revealedCards[0].characterId === "mystery") revealedCards.status = "mystery";
-    console.log(revealedCards)
+            if ((characters.find(character => character.id === revealedCards[0].characterId).name === "Stan") && (characters.find(character => character.id === revealedCards[1].characterId).name === "Wendy")) vomi();
+            else if ((characters.find(character => character.id === revealedCards[0].characterId).name === "Wendy") && (characters.find(character => character.id === revealedCards[1].characterId).name === "Stan")) vomi();
+    } else if (revealedCards[0].characterId === "mystery") {
+        revealedCards.status = "mystery";
+        revealedCards.pop();
+    }
 }
 
 function revealCard(card) {
@@ -104,6 +110,8 @@ function handleCardClick(card) {
     updateView();
     cardCheck(card);
     if (revealedCards.status === "win") {
+        if (hasStanVomitted && hasPlayerPlayedSinceStanVomitted) vomiElt.style.display = "none";
+        else if (hasStanVomitted) hasPlayerPlayedSinceStanVomitted = true;
         currentPlayer.addPoint();
         characters.find(character => character.id === card.characterId).playSound();
         if (!multiplayer && currentPlayer.counter === nbCards / 2) {
@@ -119,11 +127,14 @@ function handleCardClick(card) {
         updateView();
     }
     else if (revealedCards.status === "lose") {
+        if (hasStanVomitted && hasPlayerPlayedSinceStanVomitted) vomiElt.style.display = "none";
+        else if (hasStanVomitted) hasPlayerPlayedSinceStanVomitted = true;
         document.body.style.pointerEvents = "none";
         hideCard(revealedCards[0]);
         hideCard(revealedCards[1]);
         revealedCards = [];
         revealedCards.status = "";
+        // if (hasStanVomitted) vomiElt.style.display = "none";
         setTimeout(() => {
             document.body.style.pointerEvents = "auto";
             updateView();
@@ -136,10 +147,13 @@ function handleCardClick(card) {
         }
         revealedCards.status = "";
         updateView();
-        setTimeout(boardShuffle, 1000);
+        document.body.style.pointerEvents = "none";
+        setTimeout(() => {
+            boardShuffle();
+            document.body.style.pointerEvents = "auto";
+        }, 1000);
     } else if (revealedCards.status === "kenny") {
         isKennyDead = true;
-        console.log('Tu as tué Kenny ! ')
         gameOver();
     } else updateView();
 }
@@ -203,6 +217,15 @@ class Player {
         document.getElementById("counter" + this.id).textContent = this.counter;
         updateView();
     }
+}
+
+function vomi() {
+    const boardStyle = window.getComputedStyle(board);
+    // const contenuStyle = window.getComputedStyle(document.getElementById("contenu"));
+    vomiElt = document.getElementById("vomi");
+    vomiElt.style.display = "block";
+    vomiElt.style.height = boardStyle.height;
+    hasStanVomitted = true;
 }
 
 player1 = new Player("Martin", "", 1);
