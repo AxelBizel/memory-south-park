@@ -63,13 +63,18 @@ function newGame(nbRows, nbColumns, nbMysteryCards, player1, player2) {
 
 // Vérifie si il y a déjà une carte retournée ; si c'est le cas, compare les deux cartes et change le status de revealedCards en fonction
 function cardCheck(card) {
+    console.log(revealedCards.status)
     revealedCards.push(card);
     if (revealedCards.length === 2) {
-        if (revealedCards[1].characterId === "mystery") revealedCards.status = "mystery";
-        else if (revealedCards[1].characterId === revealedCards[0].characterId) {
-            revealedCards.status = "win";
+        if (revealedCards[1].characterId === "mystery") {
+            revealedCards.status = "mystery";
+            revealedCards.pop();
+        } else if (revealedCards[1].characterId === revealedCards[0].characterId) {
+            if (characters.find(character => character.id === revealedCards[1].characterId).name === "Kenny") revealedCards.status = "kenny";
+             else revealedCards.status = "win";
         } else revealedCards.status = "lose";
     } else if (revealedCards[0].characterId === "mystery") revealedCards.status = "mystery";
+    console.log(revealedCards)
 }
 
 function revealCard(card) {
@@ -125,11 +130,17 @@ function handleCardClick(card) {
             if (multiplayer) togglePlayer();
         }, 1000);
     } else if (revealedCards.status === "mystery") {
-        if (revealedCards.length === 2) hideCard(revealedCards[0]);
-        revealedCards = [];
+        if (revealedCards.length === 2) {
+            hideCard(revealedCards[0]);
+            revealedCards = [];
+        }
         revealedCards.status = "";
         updateView();
         setTimeout(boardShuffle, 1000);
+    } else if (revealedCards.status === "kenny") {
+        isKennyDead = true;
+        console.log('Tu as tué Kenny ! ')
+        gameOver();
     } else updateView();
 }
 
