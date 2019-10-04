@@ -114,10 +114,13 @@ form {
     display:none;
 }
 
-.side-info h2 {
+#chronoDiv h2, .currentPlayer {
     border: 5px solid black;
     border-radius: 5px;
     background-color: orange;
+}
+
+#chronoDiv h2, .player h2 {
     font-size: 24px;
 }
 
@@ -195,6 +198,20 @@ input.apple-switch:checked:after {
     display: none;
 }
 
-.currentPlayer {
-    background-color: red !important;
+.vomi {
+    display: none;
+    position: absolute;
+    pointer-events: none;
+    animation: vomiIn 1s;
+    width: 100vw;    
+}
+
+@keyframes vomiIn {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);  
+    }
 }
