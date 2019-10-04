@@ -5,140 +5,206 @@ let nbPoints = 0;
 let win = false;
 const mysteryCardMessage = document.getElementById("mysteryCard");
 const logo = document.getElementById("logo");
-const gameOverElt = document.getElementById("gameOver")
+const gameOverElt = document.getElementById("gameOver");
+const board = document.getElementById("board");
+const demo = document.getElementById("demo");
 
 mysteryCardMessage.addEventListener("click", (e) => {
     e.target.style.display = "none";
 });
 
-// This function generates and return a new board div element with the numbers of rows and columns as arguments
-function newGame(rows, columns, hasMisteryCard = true) {
-    document.getElementById("player1Name").innerText = userName;
+demo.addEventListener("change", (e) => {
+    updateView();
+    const demoShuffle = document.getElementById("demoShuffle");
+    if (e.target.checked) demoShuffle.style.display = "block";
+    else demoShuffle.style.display = "none";
+});
+
+function newGame(nbRows, nbColumns, nbMysteryCards, player1, player2) {
+    rows = nbRows;
+    columns = nbColumns;
+    document.getElementById("player1").style.display = "block";
+    currentPlayer = player1;
+    document.getElementById("player1Name").textContent = player1.name;
+    if (player2) {
+        multiplayer = true;
+        document.getElementById("player2").style.display = "block";
+        document.getElementById("chronoDiv").style.display = "none";
+        document.getElementById("player2Name").textContent = player2.name;
+    } else {
+        multiplayer = false;
+        document.getElementById("player2").style.display = "none";
+        document.getElementById("chronoDiv").style.display = "block";
+        decompte();
+    }
     win = false;
-    let nbCards;
-    (hasMisteryCard) ? nbCards = rows * columns - 1 : nbCards = rows * columns;
-    logo.style.position = "absolute";
-    logo.style.width = "20%";
-    logo.style.left = "16px";
-    const board = document.createElement("div");
-    revealedCards = [];
-    revealedCards.status = "";
-    // Generate a array with random values between 1 and the total number of tiles / 2 (two occurences for each number)
-    const randomArray = new Array(rows * columns);
-    randomArray.fill("");
-    for (j = 0; j < 2; j++) {
-        for (i = 1; i < Math.floor(rows * columns / 2) + 1; i++) {
-            let randomNumber = Math.floor(Math.random() * rows * columns);
-            while (randomArray[randomNumber] != "") {
-                randomNumber = Math.floor(Math.random() * rows * columns);
-            }
-            randomArray[randomNumber] = i;
-        }
-    }
-    if (hasMisteryCard) {
-        for (i = 0; i < randomArray.length; i++) {
-            if (randomArray[i] === "") {
-                randomArray[i] = 'mystery';
-                break;
-            }
-        }
-    }
-    console.log(randomArray)
-    let index = 0;
-    let imgDir;
-    for (let i = 0; i < rows; i++) {
-        const rowElt = document.createElement("div");
-        rowElt.classList.add("custom-row");
-        for (let j = 0; j < columns; j++) {
-            const outerTileElt = document.createElement("div");
-            const tileElt = document.createElement("div");
-            tileElt.id = "tile" + tileId;
-            tileElt.classList.add("tile");
-            tileElt.card = randomArray[index]
-            outerTileElt.style.margin = MARGIN + "px";
-            outerTileElt.style.width = `calc(100% / ${columns})`;
-            outerTileElt.style.maxWidth = "200px";
-            if (tileElt.card === "mystery") {
-                imgDir = "mystery";
-                tileElt.style.backgroundSize = "120%";
-            }    
-            else imgDir = "characters";
-            const bgUrl = `url(images/${imgDir}/${tileElt.card}.png)`;
-            tileElt.addEventListener("click", (e) => {
-                revealCard(e.target, bgUrl);
-                cardCheck(e.target);
-                if (revealedCards.status === "win") {
-                    addPoint();
-                    if (nbPoints === nbCards / 2) {
-                        win = true;
-                        gameOver();
-                    }
-                    revealedCards[0].style.pointerEvents = "none";
-                    revealedCards[1].style.pointerEvents = "none";
-                    revealedCards = [];
-                    revealedCards.status = "";
-                }
-                else if (revealedCards.status === "lose") {
-                    document.body.style.pointerEvents = "none";
-                    setTimeout(() => {
-                        hideCard(revealedCards[0]);
-                        hideCard(revealedCards[1]);
-                        revealedCards = [];
-                        revealedCards.status = "";
-                        document.body.style.pointerEvents = "auto";
-                    }, 1000);
-                } else if (revealedCards.status === "mystery") {
-                    mysteryCardMessage.style.display = "block";
-                    if (revealedCards.length === 2) hideCard(revealedCards[0]);
-                    revealedCards = [];
-                    revealedCards.status = "";
-                }
-            });
-            outerTileElt.appendChild(tileElt);
-            rowElt.appendChild(outerTileElt);
-            tileId++;
+    nbCards = rows * columns - nbMysteryCards;
+    let index = 1;
+    const cards = []
+    for (let i = 0; i < 2; i++) {
+        for (let j = 0; j < nbCards / 2; j++) {
+            cards.push(new Card(index, j + 1));
             index++;
         }
-        board.appendChild(rowElt);
     }
-    return board;
+    if (nbMysteryCards) {
+        for (let i = 0; i < nbMysteryCards; i++) cards.push(new Card(index, "mystery"));
+        index++;
+    }
+    logo.style.position = "absolute";
+    logo.style.width = "20%";
+    logo.style.left = "50px";
+    revealedCards = [];
+    revealedCards.status = "";
+    shuffledCards = shuffle(cards);
+    updateView();
 }
 
 
 // Vérifie si il y a déjà une carte retournée ; si c'est le cas, compare les deux cartes et change le status de revealedCards en fonction
-function cardCheck(tile) {
-    revealedCards.push(tile);
+function cardCheck(card) {
+    console.log(revealedCards.status)
+    revealedCards.push(card);
     if (revealedCards.length === 2) {
-        if (revealedCards[0].card === revealedCards[1].card) {
-            revealedCards.status = "win";
-        } else if (revealedCards[1].card === "mystery") revealedCards.status = "mystery";
-        else revealedCards.status = "lose"
-    } else if (revealedCards[0].card === "mystery") revealedCards.status = "mystery";
+        if (revealedCards[1].characterId === "mystery") {
+            revealedCards.status = "mystery";
+            revealedCards.pop();
+        } else if (revealedCards[1].characterId === revealedCards[0].characterId) {
+            if (characters.find(character => character.id === revealedCards[1].characterId).name === "Kenny") revealedCards.status = "kenny";
+             else revealedCards.status = "win";
+        } else revealedCards.status = "lose";
+    } else if (revealedCards[0].characterId === "mystery") revealedCards.status = "mystery";
+    console.log(revealedCards)
 }
 
-function revealCard(tile, bgUrl) {
-    tile.style.backgroundImage = bgUrl;
-    tile.style.backgroundColor = "rgba(200, 200, 200, 0.6";
+function revealCard(card) {
+    card.isRevealed = true;
 }
 
-function hideCard(tile) {
-    tile.style.backgroundImage = "none";
-    tile.style.backgroundColor = "red";
+function hideCard(card) {
+    card.isRevealed = false;
 }
 
-function addPoint() {
-    const counter = document.getElementById('counter');
-    nbPoints++
-    counter.innerText = nbPoints;    
+function shuffle(cards) {
+    const shuffledCards = new Array(cards.length);
+    shuffledCards.fill("");
+    cards.forEach(card => {
+        let randomNumber = Math.floor(Math.random() * (cards.length));
+        while (shuffledCards[randomNumber] != "") {
+            randomNumber = Math.floor(Math.random() * (cards.length));
+        }
+        shuffledCards[randomNumber] = card;
+    });
+    return shuffledCards;
 }
 
-function gameOver() {
-    if (win) {
-        gameOverElt.innerText = `Bravo, tu as gagné en ${120 - cpt  - 1} secondes !`;
-        clearTimeout(x);
+function handleCardClick(card) {
+    if (card.isRevealed) return;
+    revealCard(card);
+    updateView();
+    cardCheck(card);
+    if (revealedCards.status === "win") {
+        currentPlayer.addPoint();
+        characters.find(character => character.id === card.characterId).playSound();
+        if (!multiplayer && currentPlayer.counter === nbCards / 2) {
+            win = true;
+            gameOver();
+        } else if (multiplayer) {
+            if (player1.counter + player2.counter === nbCards / 2) gameOver();
+        }
+        document.getElementById(revealedCards[0].id).style.pointerEvents = "none";
+        document.getElementById(revealedCards[1].id).style.pointerEvents = "none";
+        revealedCards = [];
+        revealedCards.status = "";
+        updateView();
     }
-    else {
-        gameOverElt.innerText = `Tu as perdu et n'a trouvé que ${nbPoints} paires. C'est nul !`
-    }
-    document.getElementById("gameOverDiv").style.display = "block";
+    else if (revealedCards.status === "lose") {
+        document.body.style.pointerEvents = "none";
+        hideCard(revealedCards[0]);
+        hideCard(revealedCards[1]);
+        revealedCards = [];
+        revealedCards.status = "";
+        setTimeout(() => {
+            document.body.style.pointerEvents = "auto";
+            updateView();
+            if (multiplayer) togglePlayer();
+        }, 1000);
+    } else if (revealedCards.status === "mystery") {
+        if (revealedCards.length === 2) {
+            hideCard(revealedCards[0]);
+            revealedCards = [];
+        }
+        revealedCards.status = "";
+        updateView();
+        setTimeout(boardShuffle, 1000);
+    } else if (revealedCards.status === "kenny") {
+        isKennyDead = true;
+        console.log('Tu as tué Kenny ! ')
+        gameOver();
+    } else updateView();
 }
+
+function updateView() {
+    board.innerHTML = "";
+    let index = 0;
+    for (let i = 0; i < rows; i++) {
+        HTMLContent = '<div class="custom-row">'
+        for (let j = 0; j < columns; j++) {
+            const card = shuffledCards[index];
+            HTMLContent +=
+            `<div style="margin: ${MARGIN}px; width: calc(100% / ${columns}); max-width: 200px;">` +
+            `<div id ="${card.id}" card=${card} class="card" style="${card.isRevealed ? `background-image: url(${card.bgUrl}); background-color: rgba(200, 200, 200, 0.6);` : ""}" onclick="handleCardClick(shuffledCards[${index}])">${!card.isRevealed && demo.checked ? card.name : ""}</div>` +
+            `</div>`;
+            index++;
+        }
+        HTMLContent += '</div>'
+        board.innerHTML += HTMLContent;
+    }
+}
+
+class Card {
+    constructor(id, characterId) {
+        this.id = id;
+        this.characterId = characterId;
+        this.isRevealed = false;
+        this.bgUrl = characters.find(character => character.id === characterId).imageUrl;
+        this.name = characters.find(character => character.id === characterId).name;
+    }
+}
+
+function boardShuffle() {
+    shuffledCards = shuffle(shuffledCards);
+    updateView();
+}
+
+function togglePlayer() {
+    let otherPlayer
+    if (currentPlayer === player1) {
+        currentPlayer = player2;
+        otherPlayer = player1;
+    } else {
+        currentPlayer = player1;
+        otherPlayer = player2;
+    }
+    document.getElementById(`player${currentPlayer.id}Name`).classList.add("currentPlayer");
+    document.getElementById(`player${otherPlayer.id}Name`).classList.remove("currentPlayer");
+}
+
+class Player {
+    constructor(name, avatar, id) {
+        this.name = name;
+        this.avatar = avatar;
+        this.counter = 0;
+        this.id = id;
+    }
+    
+    addPoint() {
+        this.counter++;
+        document.getElementById("counter" + this.id).textContent = this.counter;
+        updateView();
+    }
+}
+
+player1 = new Player("Martin", "", 1);
+player2 = new Player("Joueur 2", "", 2)
+newGame(5,5,1, player1, player2);

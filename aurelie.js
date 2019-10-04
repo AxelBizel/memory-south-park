@@ -39,9 +39,8 @@ document.getElementById("submitNameAvatar").addEventListener('click', (e)=>{
         playerAvatar = choosenAvatar;
         console.log(playerAvatar);
         console.log("1",userName);
-        board = newGame(5, 5, true);
+        newGame(5, 5, 1);
         decompte();
-        document.getElementById("board").appendChild(board);
     } else if (choosenAvatar !== undefined){
         alert("On a besoin de ton p'tit nom")
     } else if (document.getElementById("userName").value !== ""){
