@@ -222,3 +222,17 @@ input.apple-switch:checked:after {
 .wrapPseudoSelector {
     display: none;
 }
+
+.btn-outline-secondary {
+color: black;
+border-color: black;
+font-size: 0.7em;
+}
+
+p {
+    font-family: arial;
+}
+
+#chronoDiv h2, .currentPlayer {
+    padding: 10px;
+}
