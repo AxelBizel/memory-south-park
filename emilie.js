@@ -1,29 +1,20 @@
 const openingForm = document.getElementById("openingForm")
 const firstBtn = document.getElementById("button1")
-const secondBtn = document.getElementById("submitNameAvatar")
-const thirdBtn = document.getElementById("submitNameAvatar2")
+const submitNameAvatar = document.getElementById("submitNameAvatar")
 const playerSelector = document.getElementById("playerSelector")
 const diffSelector = document.getElementById("diffSelector")
 const playerTwo = document.getElementById("playerTwo")
-const pseudoAvatarSelector = document.getElementById("divPseudoAvatarSelector")
-const pseudoAvatarSelector2 = document.getElementById("divPseudoAvatarSelector2")
+const avatarSelectorWrap = document.getElementById("avatarSelectorWrap")
+const avatarSelectorWrap2 = document.getElementById("avatarSelectorWrap2")
 
 firstBtn.addEventListener('click', (event) => {
     openingForm.style.display = 'none';
-    pseudoAvatarSelector.style.display = 'block'; 
-})
-
-secondBtn.addEventListener('click', (event) => {
-    pseudoAvatarSelector.style.display = 'none';
-})
-
-thirdBtn.addEventListener('click', (event) => {
-    pseudoAvatarSelector2.style.display = 'none';
+    avatarSelectorWrap.style.display = 'block'; 
 })
 
 playerSelector.addEventListener('change', (event) => {
     if (playerSelector.value === "twoPlayers") {
-        pseudoAvatarSelector2.style.display = 'block'
+        avatarSelectorWrap2.style.display = 'block'
  }
 })
 
