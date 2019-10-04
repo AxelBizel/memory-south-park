@@ -1,4 +1,4 @@
-#divPseudoAvatarSelector  {
+.pseudoAvatarSelector  {
     text-align: center;
     margin-bottom : 20px
 }
@@ -9,17 +9,36 @@
     text-align: center;
     margin: 0 auto;
 } 
-
-#divPseudoAvatarSelector li {
+#divPseudoAvatarSelector1Player{
+    display: none;
+}
+#divPseudoAvatarSelector2Players{
+    display: block;
+}
+.pseudoAvatarSelector li {
     list-style-type: none;
+    background-color: blueviolet;
+    border-radius: 50%;
+
 }
-#divPseudoAvatarSelector .selected {
-    background-color: rgba(255, 115, 0, 0.5);
-    border-radius: 30px;
+.pseudoAvatarSelector .selected {
+    background-color: blue;
 }
-#avatarSelector {
+.avatarSelector {
     display: flex;
     flex-direction : row;
     justify-content: space-evenly;
 
+}
+
+#avatarSelectorWrap, #avatarSelectorWrap2 {
+    display: none;
+}
+
+#avatarSelectorWrap {
+    z-index: 2;
+}
+
+#avatarSelectorWrap2 {
+    z-index: 1;
 }
