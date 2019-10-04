@@ -19,7 +19,4 @@ firstBtn.addEventListener('click', (event) => {
         nbPlayers = 1;
         pseudoAvatarSelector1Player.style.display = 'block';
     }
-    console.log(difficulty);
-    console.log(nbPlayers);
-
 });
