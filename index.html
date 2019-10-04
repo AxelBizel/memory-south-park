@@ -11,7 +11,7 @@
   </head>
   <body>
     
-    <!-- <div id="openingForm" class='modal-custom'>
+    <div id="openingForm" class='modal-custom'>
     <div id="formContent" class="modal-content-custom">
     <form>
         <section>
@@ -33,30 +33,31 @@
     </div>
     </div>
     
-    <div id="avatarSelectorWrap" class="modal-custom">
-      <div id="divPseudoAvatarSelector" class="modal-content-custom">
-
-        <p>Nom joueur :</p>
-        <input type="text" name="username" id="userName" class="text-center">
-
-        <br>
-        <p>Choisis ton personnage :</p>
-        <ul id="avatarSelector" class="mt-3 avatarSelector">
+    <div id="wrapPseudoSelector1" class="modal-custom wrapPseudoSelector">
+      <div class ="pseudoAvatarSelector modal-content-custom" id="divPseudoAvatarSelector1Player" display = none >
+        <h3>Joueur</h3>
+        <input type="text" name="username" id="userName">
+        <h3>Choisis ton personnage</h3>
+        <ul id=avatarSelector class = avatarSelector>
         </ul>  
-        <input type="button" class="btn btn-outline-secondary mt-3" value="Go!" id="submitNameAvatar">
-      </div>        
-    </div>  -->
+        <input type="button" value="Go!" id="submitNameAvatar1Player">
+      </div>
+    </div>
 
-    <div id="avatarSelectorWrap2" class="modal-custom">
-      <div id="divPseudoAvatarSelector2" class="modal-content-custom">
-        <p>Nom du deuxième joueur :</p>
-        <input type="text" name="username" id="userName2">
-        <br>
-        <p>Choisis ton personnage :</p>
-        <ul id="avatarSelector2" class="mt-3 avatarSelector">
-        </ul>  
-        <input type="button" class="btn btn-outline-secondary mt-3" value="Go!" id="submitNameAvatar2">
-      </div>        
+    <div id="wrapPseudoSelector2" class="modal-custom wrapPseudoSelector">
+      <div class ="pseudoAvatarSelector modal-content-custom" id="divPseudoAvatarSelector2Players">
+        <h3>Joueur 1</h3>
+        <input type="text" name="username" id="userNamePlayer1">
+        <h3>Choisis ton personnage</h3>
+
+        <ul id=avatarSelector1 class = avatarSelector></ul>  
+        <h3>Joueur 2</h3>
+        <input type="text" name="username" id="userNamePlayer2">
+        <h3>Choisis ton personnage</h3>
+
+        <ul id=avatarSelector2 class = avatarSelector></ul> 
+        <input type="button" value="Go!" id="submitNameAvatar2Players">      
+      </div>
     </div>
 
     <img id="logo" class="mx-auto" src="https://image.noelshack.com/fichiers/2019/39/3/1569413346-logomemory.png" alt="Logo South Park">
@@ -96,11 +97,11 @@
 
     <img src="images/vomi.png" id="vomi" class="vomi" style="top: 24px;"></img>
     
-  <!-- <script src="emilie.js"></script>
-  <script src="ludo.js"></script> -->
+  <script src="emilie.js"></script>
+  <!-- <script src="ludo.js"></script> -->
   <script src="characters.js"></script>
-  <!-- <script src="aurelie.js"></script> -->
-  <!-- <script src="axel.js"></script> -->
+  <script src="selection1Player.js"></script>
+  <script src="selection2Players.js"></script>
   <script src="martin.js"></script>
   </body>
 </html>
