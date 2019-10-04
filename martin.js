@@ -338,7 +338,7 @@ function gameOver() {
 
 function decompte() {
     x = setInterval(() => {
-        if (cpt >= 0) {
+        if (cpt > 0) {
             cpt--;
             document.getElementById("chrono").innerHTML = cpt;
         } else {
