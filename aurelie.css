@@ -1,0 +1,29 @@
+.pseudoAvatarSelector  {
+    text-align: center;
+    margin-bottom : 20px
+}
+#userName {
+    margin: 20px;
+}
+#submitNameAvatar {
+    text-align: center;
+    margin: 0 auto;
+} 
+
+.pseudoAvatarSelector li {
+    list-style-type: none;
+    background-color: rgba(255, 115, 0, 0.363);
+    border-radius: 25%;
+
+}
+
+.pseudoAvatarSelector .selected {
+    background-color: blue;
+}
+.avatarSelector {
+    display: flex;
+    flex-direction : row;
+    justify-content: space-evenly;
+
+}
+
